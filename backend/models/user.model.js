@@ -31,6 +31,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    followers:{
+        type:Array,
+        default: [],
+    },
+    following:{
+        type:Array,
+        default: [],
+    }
 }, {timestamps:true});
 
 export const User = mongoose.model('User', userSchema);
