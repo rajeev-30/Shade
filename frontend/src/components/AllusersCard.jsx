@@ -19,6 +19,7 @@ const AllusersCard = ({singleUser}) => {
             toast.success(res.data.message);
         } catch (error) {
             console.log("FollowAndUnFollow error: " + error);
+            toast.error(error?.response?.data?.message);
         }
     }
 

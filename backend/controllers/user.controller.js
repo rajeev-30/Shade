@@ -248,7 +248,7 @@ export const followAndUnFollow = async(req, res) => {
 }
 
 //Update user Info
-export const updateUserInfo = async(req, res) => {
+export const updateProfile = async(req, res) => {
     try {
         let {username, profession, bio, password} = req.body;
         const loggedInUserId = req.userId;
@@ -260,12 +260,10 @@ export const updateUserInfo = async(req, res) => {
             return res.status(400).json({
                 message: "Username already exists",
                 success: false,
-                // loggedInUser,
-                // user
             })
         }
 
-        //if user has not given the password set the password to prev password if given hash it nad update the password
+        //if user has not given the password set the password to previous password if given hash it and update the password
         if(!password) {
             password = loggedInUser.password
         }else{

@@ -45,7 +45,7 @@ const SignIn = () => {
                 dispatch(setSigninModal(false));
             } catch (error) {
                 console.log("Login failed: "+error);
-                toast.success(error?.response?.data?.message);
+                toast.error(error?.response?.data?.message);
             }
             
         }else{
@@ -61,7 +61,7 @@ const SignIn = () => {
                     dispatch(setSigninModal(false));
             } catch (error) {
                 console.log("Register failed: "+error);
-                toast.success(error?.response?.data?.message);
+                toast.error(error?.response?.data?.message);
             }
 
         }

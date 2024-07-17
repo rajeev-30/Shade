@@ -25,6 +25,7 @@ const LeftSidebar = () => {
             navigate('/');
         } catch (error) {
             console.log("Logout Errorr: "+error);
+            toast.error(error?.response?.data?.message);
 
             if(error?.response?.data?.isLoginRequired){
                 dispatch(setSigninModal(true));
