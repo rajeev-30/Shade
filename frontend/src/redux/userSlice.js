@@ -5,6 +5,7 @@ const initialState = {
     profile:null,
     signinModal:false,
     allUsers:null,
+    refresh:false,
 }
 
 const userSlice = createSlice({
@@ -22,9 +23,12 @@ const userSlice = createSlice({
         },
         setSigninModal: (state, action) => {
             state.signinModal = action.payload;
+        },
+        getRefresh: (state, action) =>{
+            state.refresh = !state.refresh
         }
     }
 });
 
-export const {getUser, getProfile, getAllUsers, setSigninModal} = userSlice.actions
+export const {getUser, getProfile, getAllUsers, setSigninModal, getRefresh} = userSlice.actions
 export default userSlice.reducer

@@ -2,6 +2,7 @@ import { Search } from 'lucide-react'
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import AllusersCard from './AllusersCard'
+import Shimmer from './Shimmer'
 
 const RightSidebar = () => {
     const [searchBorder, setSearchBorder] = useState(false)
@@ -63,7 +64,14 @@ const RightSidebar = () => {
                     searchedUsers?.map(user=><div key={user?._id} ><AllusersCard singleUser={user}/></div> )
                 )
             }
-            
+
+
+                {/* Shimmer Effect */}
+            {
+                !allUsers &&(
+                    <Shimmer/>
+                )
+            } 
         </div>
     </div>
   )

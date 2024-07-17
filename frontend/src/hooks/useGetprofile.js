@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { USER_API_END_POINT } from '../utils/Constant';
 import { getProfile, setSigninModal } from '../redux/userSlice';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const useGetprofile = (id) => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
-
+  const {refresh} = useSelector(store=>store.user)
   const fetchProfile = async() =>{
     try {
         const res = await axios.get(`${USER_API_END_POINT}/profile/${id}`,{
@@ -28,7 +28,7 @@ const useGetprofile = (id) => {
 
   useEffect(()=>{
     fetchProfile();
-  },[id])
+  },[refresh,id])
 
 }
 

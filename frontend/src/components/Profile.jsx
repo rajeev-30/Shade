@@ -2,22 +2,51 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom'
 import useGetprofile from '../hooks/useGetprofile';
-import { Dot } from 'lucide-react';
-
+import axios from 'axios';
+import { USER_API_END_POINT } from '../utils/Constant';
+import toast from 'react-hot-toast';
+import { getRefresh } from '../redux/userSlice';
 
 const Profile = () => {
+    const {user, profile} = useSelector(store=>store.user)
     const params = useParams();
     const {id} = params
-    const {profile} = useSelector(store=>store.user)
+    const dispatch = useDispatch();
+    useGetprofile(id);
 
-    useGetprofile(id)
+    const followAndUnFollow = async() =>{
+      try {
+          const res = await axios.post(`${USER_API_END_POINT}/followandunfollow`,{id},{
+              withCredentials: true
+          })
+          dispatch(getRefresh());
+          toast.success(res.data.message);
+      } catch (error) {
+          console.log("FollowAndUnFollow errorrr: " + error);
+      }
+  }
+
+
   return (
     <div className='w-[46%] min-h-screen max-h-full relative left-[27%]'>
         <h1 className='text-2xl font-semibold p-4 border-b border-gray-800'>Profile</h1>
 
         <div className='px-8 pt-6 flex justify-between items-center'>
             <img className='w-20' src={`${profile?.avatar}`} alt=""  />
-            <button className='px-4 py-2 border rounded-full text-sm'>Edit</button>
+            {
+              user?._id===id &&(
+                <button className='px-4 py-2 border rounded-full text-sm'>Edit</button>
+              )
+            }
+            {
+              !(user?._id===id) &&(
+                <button 
+                  onClick={followAndUnFollow}
+                  className={`px-4 py-2 border rounded-full text-sm ${user?.following?.includes(id)?"":"bg-[#d75f41] border-none"}`}>
+                  {user?.following?.includes(id)?"Unfollow":"Follow"}
+                </button>
+              )
+            }
         </div>
 
         <p className='text-xl px-8 pt-3 font-semibold'>{profile?.username}</p>

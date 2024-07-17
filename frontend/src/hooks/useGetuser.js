@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React, { useEffect } from 'react'
 import { USER_API_END_POINT } from '../utils/Constant';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../redux/userSlice';
 
 const useGetuser = () => {
+    const {refresh} = useSelector(store=>store.user)
     const dispatch = useDispatch();
         const fetchuser = async() =>{
         try {
@@ -20,7 +21,7 @@ const useGetuser = () => {
 
     useEffect(()=>{
         fetchuser();
-    },[])
+    },[refresh])
 }
 
 export default useGetuser

@@ -10,8 +10,7 @@ const Feed = () => {
             <div className='flex gap-4'>
                 {/* Profile photo */}
                 <div className='pl-4 pt-4'>
-
-                <User/> 
+                    <img src={`${user?.avatar}`} alt="" className='w-10'/>
                 </div>
                 <textarea
                     id="message"

@@ -49,7 +49,7 @@ export const Register = async (req, res) => {
             password: hashedPass
         });
 
-        const tokenData = { username }; 
+        const tokenData = { userId: user._id }; 
         const token = jwt.sign(tokenData, process.env.JWT_SECRET, {expiresIn: '1d'});
 
         return res.status(201)
@@ -102,7 +102,7 @@ export const Login = async(req, res) =>{
         }
     
         const tokenData = {
-            username
+            userId:user._id
         }
         const token = jwt.sign(tokenData, process.env.JWT_SECRET,{expiresIn:'1d'})
         return res.status(200)
@@ -131,7 +131,7 @@ export const Logout = async(req, res) =>{
         secure: true
     })
     .json({
-        message: `${req.username} logged out successfully`,
+        message: `You logged out successfully`,
         success: true,
     })
 }
@@ -162,9 +162,9 @@ export const getProfile = async (req, res) => {
 
 //Get user from token
 export const getUser = async (req, res) => {
-    const username = req.username
+    const userId = req.userId
     try {
-        const user = await User.findOne({username});
+        const user = await User.findById(userId);
         if(!user){
             return res.status(401).json({
                 message:"User not found",
@@ -198,17 +198,11 @@ export const getAllUsers = async (req, res) => {
 
 //Follow and unFollow
 export const followAndUnFollow = async(req, res) => {
-    // create logic for follow and unfollow, is it possible to not take (toFollow user) from params and send it menually
-    //get id of logged in user and user to follow
-    //create user of both
-    //if logged in user aleady follows then unfollow him - if unfollow remove logged in user following and other followers
-    //else follow him - if follow add logged in user following and other followers
-
     try {
-        const loggedInUserUsername = req.username;
+        const loggedInUserId = req.userId;
         const userToFollowId = req.body.id
     
-        const loggedInUser = await User.findOne({username:loggedInUserUsername});
+        const loggedInUser = await User.findById(loggedInUserId);
         const userToFollow = await User.findById(userToFollowId);
 
         if(loggedInUser.following.includes(userToFollow._id)) {
@@ -224,7 +218,7 @@ export const followAndUnFollow = async(req, res) => {
             })
 
             return res.status(200).json({
-                message:`${loggedInUser.username} unfollows ${userToFollow.username}`,
+                message:`You unfollowed ${userToFollow.username}`,
                 success:true
             })
         }else{
@@ -241,7 +235,7 @@ export const followAndUnFollow = async(req, res) => {
             })
 
             return res.status(200).json({
-                message:`${loggedInUser.username} follows ${userToFollow.username}`,
+                message:`You followed ${userToFollow.username}`,
                 success:true
             })
         }
@@ -250,7 +244,43 @@ export const followAndUnFollow = async(req, res) => {
     } catch (error) {
         console.log("followAndUnFollow error: "+error);
     }
+    
+}
 
-    
-    
+//Update user Info
+export const updateUserInfo = async(req, res) => {
+    try {
+        let {username, profession, bio, password} = req.body;
+        const loggedInUserId = req.userId;
+
+        const loggedInUser = await User.findById(loggedInUserId);
+        const user = await User.findOne({username});
+
+        if(user && user.username === username && !(user._id.equals(loggedInUser._id))) {
+            return res.status(400).json({
+                message: "Username already exists",
+                success: false,
+                // loggedInUser,
+                // user
+            })
+        }
+
+        //if user has not given the password set the password to prev password if given hash it nad update the password
+        if(!password) {
+            password = loggedInUser.password
+        }else{
+            password = await bcrypt.hash(password, 10);
+        }
+        await User.findByIdAndUpdate(loggedInUser?._id, {
+            $set:{username, profession, bio, password}
+        })
+
+        return res.status(200).json({
+            message:"Profile updated successfully",
+            success:true,
+            
+        })
+    } catch (error) {
+        console.log("updateUserInfo error: "+error);
+    }
 }
