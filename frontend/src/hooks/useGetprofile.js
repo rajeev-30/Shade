@@ -2,8 +2,9 @@ import axios from 'axios';
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { USER_API_END_POINT } from '../utils/Constant';
-import { getProfile, setSigninModal } from '../redux/userSlice';
+import { getProfile, getUser, setSigninModal } from '../redux/userSlice';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const useGetprofile = (id) => {
   const dispatch = useDispatch();
@@ -18,10 +19,12 @@ const useGetprofile = (id) => {
         dispatch(getProfile(res.data?.user))
     } catch (error) {
         console.log("getProfile error: "+error);
-
+        toast.error(error?.response?.data?.message);
         if(error?.response?.data?.isLoginRequired){
           dispatch(setSigninModal(true));
           navigate('/');
+          dispatch(getUser(null));
+          dispatch(getProfile(null));
         }
     }
   }

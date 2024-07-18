@@ -9,6 +9,7 @@ const RightSidebar = () => {
     const {user,allUsers} = useSelector(store=>store.user);
     const [searchText, setSearchText] = useState("")
     const [searchedUsers, setSearchUsers] = useState([]);
+    const [unfollowedUsers, setUnfollowedUsers] = useState([])
 
     const showSearchBorder = () =>{
         setSearchBorder(true)
@@ -31,9 +32,16 @@ const RightSidebar = () => {
         // console.log(searchedUsers);
     },[searchText],)
 
+    useEffect(()=>{
+        setUnfollowedUsers(allUsers?.filter(currUser=>{
+            if(!(user?.following?.includes(currUser._id)) && user?._id!=currUser._id){
+                return currUser
+            }
+        }))
+    },[])
   return (
-    <div ref={searchRef} onClick={hideSearchBorder} className='w-[27%] min-h-screen max-h-full fixed left-[73%] border-l border-gray-800 pl-4 py-4 pr-16  focus:bg-red-400'>
-        <div onClick={showSearchBorder} className={`h-full flex gap-2 bg-gray-800 bg-opacity-50 px-4 py-3 rounded-full ${searchBorder? "border border-[#d75f41]":"border border-gray-800 border-opacity-50"}`}>
+    <div ref={searchRef} onClick={hideSearchBorder} className='w-[27%] min-h-screen max-h-full fixed left-[73%] border-l border-gray-800 pl-4 py-4 pr-12  focus:bg-red-400'>
+        <div onClick={showSearchBorder} className={`w-full h-full flex gap-2 bg-gray-800 bg-opacity-50 px-4 py-3 rounded-full ${searchBorder? "border border-[#d75f41]":"border border-gray-800 border-opacity-50"}`}>
             <div className='flex items-center'>
                 <Search size={16}/>
             </div>
@@ -48,7 +56,11 @@ const RightSidebar = () => {
         <div className='w-full max-h-96 my-6 bg-gray-800 bg-opacity-50 rounded-xl py-2 overflow-scroll'>
             {
                 !searchText &&(
-                    allUsers?.slice(0,3).map(currUser => currUser?._id === user?._id?(""):(<div key={currUser?._id}> <AllusersCard singleUser={currUser}/> </div> ))
+                    // allUsers?.map(currUser => currUser?._id === user?._id?(""):(<div key={currUser?._id}> <AllusersCard singleUser={currUser}/> </div> ))
+                    <>
+                        <div className='px-4 pb-4 font-bold text-lg'>Users you can follow</div>
+                        { unfollowedUsers?.map(currUser => <div key={currUser?._id}> <AllusersCard singleUser={currUser}/> </div> ) }
+                    </>
                 ) 
 
             }

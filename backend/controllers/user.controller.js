@@ -52,6 +52,9 @@ export const Register = async (req, res) => {
         const tokenData = { userId: user._id }; 
         const token = jwt.sign(tokenData, process.env.JWT_SECRET, {expiresIn: '1d'});
 
+
+        user.password = null;  //Because we don't want to send password to user, it doesn't save in the database, 
+
         return res.status(201)
             .cookie('token', token, {
                 httpOnly: true,
@@ -87,7 +90,7 @@ export const Login = async(req, res) =>{
         const user = await User.findOne({username});
     
         if(!user) {
-            return res.status(401).json({
+            return res.status(404).json({
                 message:"User does not exist",
                 success:false
             })
@@ -105,6 +108,8 @@ export const Login = async(req, res) =>{
             userId:user._id
         }
         const token = jwt.sign(tokenData, process.env.JWT_SECRET,{expiresIn:'1d'})
+
+        user.password = null;  //Because we don't want to send password to user, it doesn't save in the database, 
         return res.status(200)
         .cookie('token', token, {
             httpOnly:true, 
@@ -141,9 +146,9 @@ export const getProfile = async (req, res) => {
     try {
         const {id} = req.params
 
-        const user = await User.findById(id);
+        const user = await User.findById(id).select("-password");
         if(!user) {
-            return res.status(401).json({
+            return res.status(404).json({
                 message:"User not found",
                 success:false
             })
@@ -156,7 +161,7 @@ export const getProfile = async (req, res) => {
         })
 
     } catch (error) {
-        console.log("Error getting profile", error);
+        console.log("Error getting profile: ", error.message);
     }
 }
 
@@ -164,9 +169,9 @@ export const getProfile = async (req, res) => {
 export const getUser = async (req, res) => {
     const userId = req.userId
     try {
-        const user = await User.findById(userId);
+        const user = await User.findById(userId).select("-password");
         if(!user){
-            return res.status(401).json({
+            return res.status(404).json({
                 message:"User not found",
                 success:false
             })
@@ -184,7 +189,7 @@ export const getUser = async (req, res) => {
 //Get All Users
 export const getAllUsers = async (req, res) => {
     try {
-        const allUsers = await User.find();
+        const allUsers = await User.find().sort({createdAt:-1}).select("-password");
         return res.status(200).json({
             message:"Got all users",
             success: true,
@@ -200,10 +205,17 @@ export const getAllUsers = async (req, res) => {
 export const followAndUnFollow = async(req, res) => {
     try {
         const loggedInUserId = req.userId;
-        const userToFollowId = req.body.id
+        const userToFollowId = req.params.id;
     
         const loggedInUser = await User.findById(loggedInUserId);
         const userToFollow = await User.findById(userToFollowId);
+
+        if(!userToFollow) {
+            return res.status(404).json({
+                message:"User not found",
+                success:false
+            })
+        }
 
         if(loggedInUser.following.includes(userToFollow._id)) {
             //Unfollow
@@ -247,7 +259,7 @@ export const followAndUnFollow = async(req, res) => {
     
 }
 
-//Update user Info
+//Update user Profile
 export const updateProfile = async(req, res) => {
     try {
         let {username, profession, bio, password} = req.body;
@@ -269,10 +281,11 @@ export const updateProfile = async(req, res) => {
         }else{
             password = await bcrypt.hash(password, 10);
         }
+
         await User.findByIdAndUpdate(loggedInUser?._id, {
             $set:{username, profession, bio, password}
         })
-
+        
         return res.status(200).json({
             message:"Profile updated successfully",
             success:true,
@@ -280,5 +293,60 @@ export const updateProfile = async(req, res) => {
         })
     } catch (error) {
         console.log("updateUserInfo error: "+error);
+    }
+}
+
+//Get following
+export const getFollowings = async(req,res) =>{
+    try {
+        const {id} = req.params;
+        const user = await User.findById(id);
+    
+        if(!user){
+            return res.status(404).json({
+                message:"User not found",
+                success:false,
+            })
+        }
+    
+        const followings = await User.find({_id: {$in: user.following}}).select("-password");
+    
+        return res.status(200).json({
+            message: "Got add the following",
+            success:true,
+            user,
+            followings,
+        })
+    } catch (error) {
+        console.log("getFolloweing error: "+error.message);
+    }
+
+}
+
+
+//Get Followers
+export const getFollowers = async(req,res) =>{
+    try {
+        const {id} = req.params;
+    
+        const user = await User.findById(id);
+    
+        if(!user){
+            return res.status(404).json({
+                message:"User not found",
+                success:false
+            })
+        }
+    
+        const followers = await User.find({_id :{$in: user.followers}}).select("-password");;
+    
+        return res.status(200).json({
+            message:"Got all the followers",
+            success:true,
+            user,
+            followers
+        })
+    } catch (error) {
+        console.log("getFollowers error: "+error.message);
     }
 }

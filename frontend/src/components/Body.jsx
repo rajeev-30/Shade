@@ -4,6 +4,7 @@ import Home from './Home'
 import Feed from './Feed'
 import Search  from './Search'
 import Profile from './Profile'
+import Followings from './Followings'
 
 const Body = () => {
 
@@ -23,6 +24,10 @@ const Body = () => {
                 {
                     path: '/profile/:id',
                     element: <Profile/>
+                },
+                {
+                    path: '/followings/:id',
+                    element:<Followings/>
                 }
             ]
         }

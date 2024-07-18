@@ -17,7 +17,7 @@ const isAuthenticated = async(req, res, next) =>{
             req.userId = decode.userId
         } catch (error) {
             return res.status(401).json({
-                message:"Invalid token",
+                message:"Invalid token, Login again",
                 success: false,
                 isLoginRequired: true
             })

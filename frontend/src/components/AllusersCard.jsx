@@ -5,39 +5,47 @@ import { USER_API_END_POINT } from '../utils/Constant';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { getRefresh } from '../redux/userSlice';
+import useFollowAndUnFollow from '../hooks/useFollowAndUnFollow';
 
 const AllusersCard = ({singleUser}) => {
     const {user} = useSelector(store=>store.user);
     const dispatch = useDispatch();
 
-    const followAndUnFollow = async(id) =>{
-        try {
-            const res = await axios.post(`${USER_API_END_POINT}/followandunfollow`,{id},{
-                withCredentials: true
-            })
-            dispatch(getRefresh())
-            toast.success(res.data.message);
-        } catch (error) {
-            console.log("FollowAndUnFollow error: " + error);
-            toast.error(error?.response?.data?.message);
-        }
-    }
+    const followAndUnFollow = useFollowAndUnFollow();
 
 
   return (
     <div>
         <div className='w-full flex justify-between py-2 px-4'>
-                <p className='flex items-center'>{singleUser?.username}</p>
+            <div className='w-[70%] overflow-scroll flex gap-2 items-center'>
+                <img src={`${singleUser.avatar}`} width={35}/>
+                <Link 
+                    to={`/profile/${singleUser?._id}`}
+                    className='w-fit flex items-center cursor-pointer hover:border-b hover:border-gray-700'>
+                    {singleUser?.username}
+                </Link>
+            </div>
                 {
-                    (user?.following?.includes(singleUser._id) || user?._id===singleUser._id) && (
+                    user?._id===singleUser._id && (
                         <Link 
                             to={`/profile/${singleUser?._id}`}
-                            className="px-4 py-2 bg-[#d75f41] text-xs rounded-full bg-inherit border border-[#d75f41] ">
+                            className="px-4 py-2 bg-[#d75f41] text-xs rounded-full bg-inherit border  ">
                                 Profile
                         </Link>
                         // console.log(user)
                     )
                 }
+                {
+                    user?.following?.includes(singleUser._id) && (
+                        <button 
+                            onClick={()=>followAndUnFollow(singleUser._id)}
+                            className="px-4 py-2 bg-[#d75f41] text-xs rounded-full bg-inherit border ">
+                                Unfollow
+                        </button>
+                        // console.log(user)
+                    )
+                }
+                
                 {
                     !(user?.following?.includes(singleUser._id) || user?._id===singleUser._id) &&(
                         <button 
