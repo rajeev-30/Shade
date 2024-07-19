@@ -46,7 +46,7 @@ const AllusersCard = ({singleUser}) => {
                         <button 
                             onClick={()=>followAndUnFollow(singleUser._id)}
                             disabled={!user} 
-                            className="px-4 py-2 bg-[#d75f41] text-xs rounded-full">
+                            className={`px-4 py-2 bg-[#d75f41] text-xs rounded-full ${user?"":"opacity-50"}`}>
                                 {isLoading?"Loading...":"Follow"}
                         </button>
                         // console.log(singleUser._id)

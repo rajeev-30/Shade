@@ -26,7 +26,7 @@ const Followers = () => {
             setCurrUser(res.data.user);
         } catch (error) {
             console.log("useGetfollowings error: " + error?.message);
-            toast.error(error?.response?.data?.message)
+            // toast.error(error?.response?.data?.message)
         }
     }
 
