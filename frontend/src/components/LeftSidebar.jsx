@@ -35,8 +35,8 @@ const LeftSidebar = () => {
     }
     return (
         <>
-            <div className='w-[27%] h-full pl-32 pt-8 border-r border-gray-800 fixed'>
-                <div>
+            <div className='w-[27%] min-h-screen max-h-full pl-32 border-r border-gray-800'>
+                <div className='pt-4 sticky top-0'>
                     <NavLink 
                         to={"/"}
                         className={`w-fit flex gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-600 hover:bg-opacity-15`}

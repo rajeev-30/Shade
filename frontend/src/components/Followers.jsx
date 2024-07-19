@@ -6,18 +6,18 @@ import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import { USER_API_END_POINT } from '../utils/Constant';
 
-const Followings = () => {
+const Followers = () => {
     const params = useParams()
     const {id} = params
-    const [followings,setFollowings] = useState([]);
+    const [followers,setFollowers] = useState([]);
     const [currUser,setCurrUser] = useState(null);
 
-    const fetchFollowings =  async(id) =>{
+    const fetchFollowers =  async(id) =>{
         try {
-            const res = await axios.get(`${USER_API_END_POINT}/followings/${id}`,{
+            const res = await axios.get(`${USER_API_END_POINT}/followers/${id}`,{
                 withCredentials: true
             })
-            setFollowings(res.data.followings);
+            setFollowers(res.data.followers);
             setCurrUser(res.data.user);
         } catch (error) {
             console.log("useGetfollowings error: " + error?.message);
@@ -26,7 +26,7 @@ const Followings = () => {
     }
 
     useEffect(()=>{
-        fetchFollowings(id)
+        fetchFollowers(id)
     },[id])
     
   return (
@@ -44,12 +44,12 @@ const Followings = () => {
             </div>
         </div>
 
-        <p className='text-2xl font-bold px-4 py-6'>{currUser?.following?.length} Following</p>
+        <p className='text-2xl font-bold px-4 py-6'>{currUser?.followers?.length} Followers</p>
         {   
-            followings?.map(user =>  <div key={user?._id}><AllusersCard singleUser={user}/></div> )
+            followers?.map(user =>  <div key={user?._id}><AllusersCard singleUser={user}/></div> )
         }
     </div>
   )
 }
 
-export default Followings
+export default Followers

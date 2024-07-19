@@ -22,7 +22,7 @@ const Profile = () => {
 
   return (
     <>
-      <div className="w-[46%] min-h-screen max-h-full relative left-[27%]">
+      <div className="w-[46%] min-h-screen max-h-full">
         <h1 className="text-2xl font-semibold p-4 border-b border-gray-800">
           Profile
         </h1>
@@ -73,10 +73,12 @@ const Profile = () => {
             <p className="text-gray-400 text-xs">Posts</p>
           </div>
 
-          <div className="flex flex-col justify-center items-center">
+          <Link
+            to={`/followers/${id}`}
+            className="flex flex-col justify-center items-center">
             <p>{profile?.followers?.length}</p>
             <p className="text-gray-400 text-xs">Followers</p>
-          </div>
+          </Link>
 
           <Link 
             to={`/followings/${id}`}

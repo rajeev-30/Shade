@@ -5,6 +5,7 @@ import Feed from './Feed'
 import Search  from './Search'
 import Profile from './Profile'
 import Followings from './Followings'
+import Followers from './Followers'
 
 const Body = () => {
 
@@ -28,6 +29,10 @@ const Body = () => {
                 {
                     path: '/followings/:id',
                     element:<Followings/>
+                },
+                {
+                    path:'/followers/:id',
+                    element:<Followers/>
                 }
             ]
         }

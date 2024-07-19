@@ -309,7 +309,7 @@ export const getFollowings = async(req,res) =>{
             })
         }
     
-        const followings = await User.find({_id: {$in: user.following}}).select("-password");
+        const followings = await User.find({_id: {$in: user.following}}).select("-password").sort({createdAt:-1});
     
         return res.status(200).json({
             message: "Got add the following",
@@ -338,7 +338,7 @@ export const getFollowers = async(req,res) =>{
             })
         }
     
-        const followers = await User.find({_id :{$in: user.followers}}).select("-password");;
+        const followers = await User.find({_id :{$in: user.followers}}).select("-password").sort({createdAt:-1});
     
         return res.status(200).json({
             message:"Got all the followers",

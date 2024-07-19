@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 const Feed = () => {
     const {user} = useSelector(store=>store.user)
     return (
-        <div className='w-[46%] relative left-[27%]'>
+        <div className='w-[46%]'>
             <h1 className='text-2xl font-semibold p-4 border-b border-gray-800'>Home</h1>
             <div className='flex gap-4'>
                 {/* Profile photo */}
