@@ -5,19 +5,23 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import { USER_API_END_POINT } from '../utils/Constant';
+import { useDispatch, useSelector } from 'react-redux';
+import { getFollowers } from '../redux/userSlice';
 
 const Followers = () => {
     const params = useParams()
     const {id} = params
-    const [followers,setFollowers] = useState([]);
+    // const [followers,setFollowers] = useState([]);
+    const {followers, refresh} = useSelector(store=>store.user);
     const [currUser,setCurrUser] = useState(null);
+    const dispatch = useDispatch()
 
     const fetchFollowers =  async(id) =>{
         try {
             const res = await axios.get(`${USER_API_END_POINT}/followers/${id}`,{
                 withCredentials: true
             })
-            setFollowers(res.data.followers);
+            dispatch(getFollowers(res.data.followers));
             setCurrUser(res.data.user);
         } catch (error) {
             console.log("useGetfollowings error: " + error?.message);
@@ -27,7 +31,7 @@ const Followers = () => {
 
     useEffect(()=>{
         fetchFollowers(id)
-    },[id])
+    },[id, refresh])
     
   return (
     <div className='w-[46%] min-h-screen max-h-full'>

@@ -10,8 +10,10 @@ import { useSelector } from 'react-redux'
 
 
 const Home = () => {
+  
   useGetuser();
   useGetallusers();
+
   return (
     <div className='h-full w-full flex'>
         <LeftSidebar/>

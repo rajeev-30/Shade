@@ -3,7 +3,7 @@ import {Eye, EyeOff, GraduationCap, LockKeyhole, NotebookText, SquareUser, X} fr
 import axios from 'axios';
 import { USER_API_END_POINT } from '../utils/Constant';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser, setSigninModal } from '../redux/userSlice';
+import { getRefresh, getUser, setSigninModal } from '../redux/userSlice';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
@@ -40,9 +40,12 @@ const SignIn = () => {
                     withCredentials:true,
                 })
                 dispatch(getUser(res.data.user));
+                dispatch(getRefresh())
                 toast.success(res.data.message);
                 navigate("/");
                 dispatch(setSigninModal(false));
+                window.location.reload(false);
+
             } catch (error) {
                 console.log("Login failed: "+error);
                 toast.error(error?.response?.data?.message);
@@ -56,9 +59,12 @@ const SignIn = () => {
                         withCredentials: true
                     })
                     dispatch(getUser(res.data.user));
+                    dispatch(getRefresh())
                     toast.success(res.data.message);
                     navigate("/");
                     dispatch(setSigninModal(false));
+                    window.location.reload(false);
+
             } catch (error) {
                 console.log("Register failed: "+error);
                 toast.error(error?.response?.data?.message);

@@ -20,7 +20,7 @@ const useGetallusers = () => {
 
     useEffect(()=>{
         fetchAllUsers();
-    },[refresh])
+    },[])
 }
 
 export default useGetallusers

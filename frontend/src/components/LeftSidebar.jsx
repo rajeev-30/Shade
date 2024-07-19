@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Signin from './SignIn';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { getProfile, getUser, setSigninModal } from '../redux/userSlice';
+import { getProfile, getRefresh, getUnFollowed, getUser, setSigninModal } from '../redux/userSlice';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { USER_API_END_POINT } from '../utils/Constant';
@@ -19,8 +19,10 @@ const LeftSidebar = () => {
                 withCredentials: true,
             })
 
-            dispatch(getUser(null));
-            dispatch(getProfile(null));
+            // dispatch(getUser(null));
+            // dispatch(getProfile(null));
+            dispatch(getUnFollowed(null));
+            dispatch(getRefresh())
             toast.success(res?.data?.message)
             navigate('/');
         } catch (error) {

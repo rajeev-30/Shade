@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 body{
-    background-color: #0F172A;
+    /* background-color: #0F172A; */
+    background-color: black;
 }
 
 .loader {

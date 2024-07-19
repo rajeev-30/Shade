@@ -350,3 +350,29 @@ export const getFollowers = async(req,res) =>{
         console.log("getFollowers error: "+error.message);
     }
 }
+
+//get unfollowed users
+export const getUnfollowedUsers = async (req, res)=>{
+    try {
+        const id= req.userId;
+    
+        const user = await User.findById(id);
+    
+        if(!user){
+            return res.status(404).json({
+                message:"User not found",
+                success:false
+            })
+        }
+    
+        const unFollowed = await User.find({_id: {$nin: [...user.following, user.id]}}).select("-password").sort({createdAt:-1});
+    
+        return res.status(200).json({
+            message:"Got all the unfollowed users",
+            success:true,
+            unFollowed,
+        })
+    } catch (error) {
+        console.log("getUnfollowedUsers: "+error.message);
+    }
+}

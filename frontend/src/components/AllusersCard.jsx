@@ -17,12 +17,12 @@ const AllusersCard = ({singleUser}) => {
   return (
     <div>
         <div className='w-full flex justify-between py-2 px-4'>
-            <div className='w-[70%] overflow-scroll flex gap-2 items-center'>
-                <img src={`${singleUser.avatar}`} width={35}/>
+            <div className='w-[70%] overflow-scroll  items-center'>
                 <Link 
                     to={`/profile/${singleUser?._id}`}
-                    className='w-fit flex items-center cursor-pointer hover:border-b hover:border-gray-700'>
-                    {singleUser?.username}
+                    className='w-fit flex gap-2 items-center cursor-pointer'>
+                    <img src={`${singleUser.avatar}`} width={35}/>
+                    <div className='hover:border-b hover:border-gray-700 pb-1'>{singleUser?.username}</div> 
                 </Link>
             </div>
                 {

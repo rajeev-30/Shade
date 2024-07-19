@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Shimmer = () => {
+const UserShimmer = () => {
   return (
     // className='h-96 w-full flex justify-center items-center'
     <div className='py-2'>
@@ -23,4 +23,4 @@ const Shimmer = () => {
   )
 }
 
-export default Shimmer
+export default UserShimmer
