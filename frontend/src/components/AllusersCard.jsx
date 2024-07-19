@@ -6,7 +6,7 @@ import useFollowAndUnFollow from '../hooks/useFollowAndUnFollow';
 const AllusersCard = ({singleUser}) => {
     const {user} = useSelector(store=>store.user);
 
-    const followAndUnFollow = useFollowAndUnFollow();
+    const [followAndUnFollow, isLoading] = useFollowAndUnFollow();
 
 
   return (
@@ -35,7 +35,7 @@ const AllusersCard = ({singleUser}) => {
                         <button 
                             onClick={()=>followAndUnFollow(singleUser._id)}
                             className="px-4 py-2 bg-[#d75f41] text-xs rounded-full bg-inherit border ">
-                                Unfollow
+                                {isLoading?"Loading...":"Unfollow"}
                         </button>
                         // console.log(user)
                     )
@@ -47,7 +47,7 @@ const AllusersCard = ({singleUser}) => {
                             onClick={()=>followAndUnFollow(singleUser._id)}
                             disabled={!user} 
                             className="px-4 py-2 bg-[#d75f41] text-xs rounded-full">
-                                Follow
+                                {isLoading?"Loading...":"Follow"}
                         </button>
                         // console.log(singleUser._id)
                     )

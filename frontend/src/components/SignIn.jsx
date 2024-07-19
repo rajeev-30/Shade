@@ -20,6 +20,8 @@ const SignIn = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const [isLoading, setIsLoading] = useState();
+
     const isLoginHandler = () =>{
         setIsLogin(!isLogin)
     }
@@ -33,6 +35,7 @@ const SignIn = () => {
 
     const signinHandler = async(e) => {
         e.preventDefault();
+        setIsLoading(true)
         if(isLogin){
             try {
                 const res = await axios.post(`${USER_API_END_POINT}/login`,
@@ -49,6 +52,8 @@ const SignIn = () => {
             } catch (error) {
                 console.log("Login failed: "+error);
                 toast.error(error?.response?.data?.message);
+            }finally{
+                setIsLoading(false)
             }
             
         }else{
@@ -68,6 +73,8 @@ const SignIn = () => {
             } catch (error) {
                 console.log("Register failed: "+error);
                 toast.error(error?.response?.data?.message);
+            }finally{
+                setIsLoading(false)
             }
 
         }
@@ -167,7 +174,8 @@ const SignIn = () => {
 
                 <button 
                     className='w-1/2 mt-8 text-lg font-semibold bg-[#d75f41] py-3 rounded-full' 
-                    type="submit"> { isLogin ? "Login" : "Register" }
+                    type="submit"> 
+                    { isLogin ? (isLoading?"Loading...":"Login") : (isLoading?"Loading...":"Register") }
                 </button>
 
                 <div className=''>
