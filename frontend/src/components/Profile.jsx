@@ -1,11 +1,7 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import useGetprofile from "../hooks/useGetprofile";
-import axios from "axios";
-import { USER_API_END_POINT } from "../utils/Constant";
-import toast from "react-hot-toast";
-import { getRefresh } from "../redux/userSlice";
 import UpdateProfile from "./UpdateProfile";
 import useFollowAndUnFollow from "../hooks/useFollowAndUnFollow";
 
@@ -13,7 +9,6 @@ const Profile = () => {
   const { user, profile } = useSelector((store) => store.user);
   const params = useParams();
   const { id } = params;
-  const dispatch = useDispatch();
   const [editProfileModal, setEditProfileModal] = useState(false);
 
   useGetprofile(id);

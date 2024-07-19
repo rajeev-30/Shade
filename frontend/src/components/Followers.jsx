@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 import { USER_API_END_POINT } from '../utils/Constant';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFollowers } from '../redux/userSlice';
+import UserShimmer from './Shimmer';
 
 const Followers = () => {
     const params = useParams()
@@ -51,6 +52,24 @@ const Followers = () => {
         <p className='text-2xl font-bold px-4 py-6'>{currUser?.followers?.length} Followers</p>
         {   
             followers?.map(user =>  <div key={user?._id}><AllusersCard singleUser={user}/></div> )
+        }
+        {
+            !followers && (
+                <>
+                <UserShimmer/>
+                <UserShimmer/>
+                <UserShimmer/>
+                <UserShimmer/>
+                <UserShimmer/>
+                <UserShimmer/>
+                <UserShimmer/>
+                <UserShimmer/>
+                <UserShimmer/>
+                <UserShimmer/>
+                <UserShimmer/>
+                <UserShimmer/>
+                </>
+            )
         }
     </div>
   )

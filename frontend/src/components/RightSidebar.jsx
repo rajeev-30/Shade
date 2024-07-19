@@ -6,14 +6,12 @@ import UserShimmer from './Shimmer'
 import axios from 'axios'
 import { USER_API_END_POINT } from '../utils/Constant'
 import { getUnFollowed } from '../redux/userSlice'
-import toast from 'react-hot-toast'
 
 const RightSidebar = () => {
     const [searchBorder, setSearchBorder] = useState(false)
     const {user, allUsers,unFollowed, refresh} = useSelector(store=>store.user);
     const [searchText, setSearchText] = useState("")
     const [searchedUsers, setSearchUsers] = useState([]);
-    // const [unFollowed, setUnFollowed] = useState(null)
     const dispatch = useDispatch();
 
     const showSearchBorder = () =>{
@@ -36,16 +34,6 @@ const RightSidebar = () => {
         }))
         // console.log(searchedUsers);
     },[searchText],)
-
-
-    // useEffect(()=>{
-    //     setUnFollowed(allUsers?.filter(currUser=>{
-    //         if(!(user?.following?.includes(currUser._id)) && user?._id!=currUser._id){
-    //             return currUser
-    //         }
-    //     }))
-    //     console.log("setUnfollowedUsers: "+unFollowed);
-    // },[])
 
     const fetchUnFollowed = async() =>{
         try {
@@ -90,14 +78,7 @@ const RightSidebar = () => {
                         </>
                     ) 
                 }
-                {/* {
-                    user?.following?.length==0 && (
-                        <>
-                            <div className='px-4 pb-4 font-bold text-lg'>Users you can follow</div>
-                            {allUsers?.map(currUser => currUser?._id === user?._id?(""):(<div key={currUser?._id}> <AllusersCard singleUser={currUser}/> </div> ))}
-                        </>
-                    )
-                } */}
+ 
                 {
                     !user &&  !searchText && (
                         allUsers?.map(currUser => currUser?._id === user?._id?(""):(<div key={currUser?._id}> <AllusersCard singleUser={currUser}/> </div> ))

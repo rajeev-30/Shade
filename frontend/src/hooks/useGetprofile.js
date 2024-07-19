@@ -19,7 +19,7 @@ const useGetprofile = (id) => {
         dispatch(getProfile(res.data?.user))
     } catch (error) {
         console.log("getProfile error: "+error);
-        toast.error(error?.response?.data?.message);
+        // toast.error(error?.response?.data?.message);
         if(error?.response?.data?.isLoginRequired){
           dispatch(setSigninModal(true));
           navigate('/');

@@ -1,4 +1,4 @@
-import { Image, User } from 'lucide-react'
+import { Image } from 'lucide-react'
 import React from 'react'
 import { useSelector } from 'react-redux'
 

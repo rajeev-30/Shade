@@ -1,15 +1,10 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import axios from 'axios';
-import { USER_API_END_POINT } from '../utils/Constant';
-import toast from 'react-hot-toast';
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
-import { getRefresh } from '../redux/userSlice';
 import useFollowAndUnFollow from '../hooks/useFollowAndUnFollow';
 
 const AllusersCard = ({singleUser}) => {
     const {user} = useSelector(store=>store.user);
-    const dispatch = useDispatch();
 
     const followAndUnFollow = useFollowAndUnFollow();
 

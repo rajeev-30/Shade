@@ -1,9 +1,9 @@
-import { Home, Search, User, Settings, Store, LogOut } from 'lucide-react'
-import React, { useState } from 'react'
+import { Home, Search, User, Store, LogOut } from 'lucide-react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Signin from './SignIn';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { getProfile, getRefresh, getUnFollowed, getUser, setSigninModal } from '../redux/userSlice';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { getRefresh, getUnFollowed, getUser, setSigninModal } from '../redux/userSlice';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { USER_API_END_POINT } from '../utils/Constant';
