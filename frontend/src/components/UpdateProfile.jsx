@@ -15,7 +15,7 @@ const UpdateProfile = ({onClose}) => {
     const [showPass, setShowPass] = useState(false);
     const modalRef = useRef();
     const dispatch = useDispatch();
-
+    const [loading, setIsLoading] = useState();
     const closeModal = (e)=>{
         if(modalRef.current==e.target){
             onClose()
@@ -23,6 +23,7 @@ const UpdateProfile = ({onClose}) => {
     }
     
     const updateProfileHandler = async() => {
+        setIsLoading(true);
         try {
             const res = await axios.post(`${USER_API_END_POINT}/updateprofile`,
             {username,profession,bio,password},{
@@ -34,6 +35,8 @@ const UpdateProfile = ({onClose}) => {
         } catch (error) {
             console.log("updateProfileHandler error: " + error);
             toast.error(error?.response?.data?.message);
+        }finally{
+            setIsLoading(false)
         }
     }
   return (
@@ -55,7 +58,7 @@ const UpdateProfile = ({onClose}) => {
                 <button 
                     onClick={updateProfileHandler}
                     className='bg-[#d75f41] py-2 px-6 rounded-full text-sm font-semibold'>
-                    Save
+                    {loading?"Saving...":"Save"}
                 </button>
             </div>
 
