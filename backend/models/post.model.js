@@ -3,9 +3,11 @@ import mongoose from "mongoose";
 const postSchema = new mongoose.Schema({
     text:{
         type: String,
+        default:''
     },
     img:{
         type: String,
+        default:''
     },
     user:{
         type: mongoose.Schema.Types.ObjectId,
