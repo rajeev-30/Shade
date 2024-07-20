@@ -88,7 +88,7 @@ export const getAllPosts = async(req, res) => {
         const posts = await Post.find()
         .populate({
             path:"user",
-            select: "username avatar createdAt"
+            select: "username avatar profession createdAt"
         })
         .sort({createdAt:-1});
 
@@ -125,7 +125,7 @@ export const getFollowingPosts = async(req, res) => {
         const posts  = await Post.find({user: {$in: loggedInUser.following}})
         .populate({
             path:"user",
-            select:"username avatar createdAt"
+            select:"username avatar profession createdAt"
         })
         .sort({createdAt:-1});
 

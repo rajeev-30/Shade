@@ -1,9 +1,16 @@
 import { Image } from 'lucide-react'
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
+import useGetposts from '../hooks/useGetposts'
+import PostsCard from './PostsCard'
 
 const Feed = () => {
     const {user} = useSelector(store=>store.user)
+    const {posts, followingPosts} = useSelector(store=>store.post)
+    const [togglePost, setTogglePost] = useState(true)
+    useGetposts()
+    
+
     return (
         <div className='w-[46%]'>
             <h1 className='text-2xl font-semibold p-4 border-b border-gray-800'>Home</h1>
@@ -29,10 +36,27 @@ const Feed = () => {
             <div className='border-b border-gray-800 '></div>
 
             <div className='w-full flex sticky top-0 bg-[#0F172A] bg-opacity-30 backdrop-blur-3xl'>
-                <button className='w-[50%] flex justify-center py-4 hover:bg-gray-800 hover:bg-opacity-15 cursor-pointer border-b-2 border-red-500'>Home</button>
-                <button className='w-[50%] flex justify-center py-4 hover:bg-gray-800 hover:bg-opacity-15 cursor-pointer focus:border-b-2 focus:border-red-500'>AMA</button>
+                <button 
+                    onClick={()=>setTogglePost(true)}
+                    className={`w-[50%] flex justify-center py-4 hover:bg-gray-800 hover:bg-opacity-15 cursor-pointer ${togglePost?'border-b-2 border-red-500':'text-gray-400'}`}>
+                        Home
+                    </button>
+                <button 
+                    onClick={()=>setTogglePost(false)}
+                    className={`w-[50%] flex justify-center py-4 hover:bg-gray-800 hover:bg-opacity-15 cursor-pointer ${togglePost?'text-gray-400':'border-b-2 border-red-500'}`}>
+                        Following
+                    </button>
             </div>
-            We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨We had Joy we had fun,we had seasons in the Sun!!🌟✨
+            {
+                togglePost && (
+                    posts?.map((post)=> <PostsCard post={post}/>)
+                )
+            } 
+            {
+                !togglePost && (
+                    followingPosts?.map((post)=> <PostsCard post={post}/>)
+                )
+            }
         </div>
     )
 }

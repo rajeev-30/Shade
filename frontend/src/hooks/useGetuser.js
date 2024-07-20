@@ -7,7 +7,7 @@ import { getFollowers, getFollowings, getProfile, getUnFollowed, getUser, setSig
 const useGetuser = () => {
     const {refresh} = useSelector(store=>store.user)
     const dispatch = useDispatch();
-        const fetchuser = async() =>{
+    const fetchuser = async() =>{
         try {
             const res = await axios.get(`${USER_API_END_POINT}/getuser`,{
                 withCredentials: true,
