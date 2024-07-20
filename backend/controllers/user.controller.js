@@ -202,7 +202,7 @@ export const getAllUsers = async (req, res) => {
 }
 
 
-//Follow and unFollow
+//Follow and unFollow user and notification 
 export const followAndUnFollow = async(req, res) => {
     try {
         const loggedInUserId = req.userId;

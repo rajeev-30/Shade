@@ -145,7 +145,7 @@ export const getFollowingPosts = async(req, res) => {
     }
 }
 
-//LineAndUnlke post
+//LineAndUnlke post and notification
 export const likeAndUnlike = async(req, res) => {
     try {
         const userId = req.userId;
@@ -206,3 +206,50 @@ export const likeAndUnlike = async(req, res) => {
         })
     }
 }   
+
+//Comment on a post ans notification
+export const commentOnPost = async(req, res) => {
+    try {
+        const userId = req.userId;
+        const {id} = req.params;
+        const {text} = req.body;
+
+        const user = await User.findById(userId);
+        const post = await Post.findById(id);
+
+        if(!user){
+            return res.status(404).json({
+                message: "User not found",
+                success:false
+            })
+        } 
+        if(!post){
+            return res.status(404).json({
+                message: "Post not found",
+                success:false
+            })
+        }
+
+        await Post.findByIdAndUpdate(post._id, {$push: {comments: {text,user:user._id}}});
+
+        //comment notification
+        await Notification.create({
+            from: user._id,
+            to: post.user,
+            post: post._id,
+            type: 'comment'
+        })
+
+        return res.status(200).json({
+            message:"Comment created successfully",
+            success: true
+        })
+    } catch (error) {
+        console.log("likeAndUnlike error: " + error.message)
+        
+        return res.status(500).json({
+            message: "Internal server error",
+            success:false
+        })
+    }
+}
