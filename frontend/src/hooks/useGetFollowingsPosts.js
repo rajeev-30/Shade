@@ -2,20 +2,20 @@ import React, { useEffect } from 'react'
 import { POST_API_END_POINT } from '../utils/Constant'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
-import { getPosts } from '../redux/postSlice'
+import { getFollowingPosts } from '../redux/postSlice'
 
-const useGetposts = () => {
+const useGetFollowingPosts = () => {
     const {refresh} = useSelector(store=>store.post)
     const dispatch = useDispatch()
 
     const fetchPosts = async() => { 
         try {
-            const res = await axios.get(`${POST_API_END_POINT}/allposts`,{
+            const res = await axios.get(`${POST_API_END_POINT}/followingposts`,{
                 withCredentials: true,
             })
-            dispatch(getPosts(res.data.posts));
+            dispatch(getFollowingPosts(res.data.posts));
         } catch (error) {
-            console.log("useGetposts error: " + error)
+            console.log("useGetFollowingPosts error: " + error)
         }
 
     }
@@ -25,4 +25,4 @@ const useGetposts = () => {
     },[refresh])
 }
 
-export default useGetposts
+export default useGetFollowingPosts

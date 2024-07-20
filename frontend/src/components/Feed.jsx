@@ -3,13 +3,15 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import useGetposts from '../hooks/useGetposts'
 import PostsCard from './PostsCard'
+import useGetFollowingPosts from '../hooks/useGetFollowingsPosts'
 
 const Feed = () => {
     const {user} = useSelector(store=>store.user)
     const {posts, followingPosts} = useSelector(store=>store.post)
     const [togglePost, setTogglePost] = useState(true)
+
     useGetposts()
-    
+    useGetFollowingPosts()
 
     return (
         <div className='w-[46%]'>
@@ -38,23 +40,23 @@ const Feed = () => {
             <div className='w-full flex sticky top-0 bg-[#0F172A] bg-opacity-30 backdrop-blur-3xl'>
                 <button 
                     onClick={()=>setTogglePost(true)}
-                    className={`w-[50%] flex justify-center py-4 hover:bg-gray-800 hover:bg-opacity-15 cursor-pointer ${togglePost?'border-b-2 border-red-500':'text-gray-400'}`}>
+                    className={`w-[50%] flex justify-center py-4 hover:bg-gray-800 hover:bg-opacity-15 cursor-pointer ${togglePost?'border-b-2 border-[#d75f41]':'text-gray-400'}`}>
                         Home
                     </button>
                 <button 
                     onClick={()=>setTogglePost(false)}
-                    className={`w-[50%] flex justify-center py-4 hover:bg-gray-800 hover:bg-opacity-15 cursor-pointer ${togglePost?'text-gray-400':'border-b-2 border-red-500'}`}>
+                    className={`w-[50%] flex justify-center py-4 hover:bg-gray-800 hover:bg-opacity-15 cursor-pointer ${togglePost?'text-gray-400':'border-b-2 border-[#d75f41]'}`}>
                         Following
                     </button>
             </div>
             {
                 togglePost && (
-                    posts?.map((post)=> <PostsCard post={post}/>)
+                    posts?.map((post)=> <div key={post._id}><PostsCard post={post}/></div>)
                 )
             } 
             {
                 !togglePost && (
-                    followingPosts?.map((post)=> <PostsCard post={post}/>)
+                    followingPosts?.map((post)=> <div key={post._id}><PostsCard post={post}/></div>)
                 )
             }
         </div>

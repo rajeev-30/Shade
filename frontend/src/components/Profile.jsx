@@ -82,10 +82,13 @@ const Profile = () => {
             <p className="text-gray-400 text-xs">Followings</p>
           </Link>
         </div>
-        <div className="pr-6 flex justify-center pt-6 border-b border-gray-800">
-          <div className="h-8 border-b-2 border-[#d75f41] text-sm font-semibold">
+        <div className="pr-6 flex justify-around pt-6 border-b border-gray-800">
+          <button className="h-8 border-b-2 border-[#d75f41] text-sm font-semibold">
             Posts
-          </div>
+          </button>
+          <button className="h-8 border-b-2 border-[#d75f41] text-sm font-semibold">
+            Liked posts
+          </button>
         </div>
         <div>Add tweets</div>
       </div>
