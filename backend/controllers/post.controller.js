@@ -1,3 +1,4 @@
+import { Notification } from "../models/notification.model.js";
 import { Post } from "../models/post.model.js";
 import { User } from "../models/user.model.js";
 import {v2 as cloudinary} from "cloudinary"
@@ -143,3 +144,65 @@ export const getFollowingPosts = async(req, res) => {
         })
     }
 }
+
+//LineAndUnlke post
+export const likeAndUnlike = async(req, res) => {
+    try {
+        const userId = req.userId;
+        const {id} = req.params;
+
+        const user = await User.findById(userId);
+        const post = await Post.findById(id);
+
+        if(!user){
+            return res.status(404).json({
+                message: "User not found",
+                success:false
+            })
+        } 
+        if(!post){
+            return res.status(404).json({
+                message: "Post not found",
+                success:false
+            })
+        }
+
+        if(post.likes.includes(user._id)){
+            await Post.findByIdAndUpdate(post._id, {$pull: {likes: user._id}});
+            await User.findByIdAndUpdate(user._id, {$pull: {likedPosts: post._id}});
+
+            //Unlike notification
+            await Notification.findOneAndDelete(...[{post: post._id, from: user._id, type: 'like'}]);
+
+            return res.status(200).json({
+                message: "You Unliked the Post",
+                success:true
+            })
+        }
+        else {
+            await Post.findByIdAndUpdate(post._id, {$push: {likes: user._id}});
+            await User.findByIdAndUpdate(user._id, {$push: {likedPosts: post._id}});
+
+            // like notification 
+            await Notification.create({
+                from: user._id,
+                to: post.user,
+                post: post._id,
+                type: 'like'
+            });
+
+            return res.status(200).json({
+                message: "You liked the Post",
+                success:true
+            })
+        }
+
+    } catch (error) {
+        console.log("likeAndUnlike error: " + error.message)
+        
+        return res.status(500).json({
+            message: "Internal server error",
+            success:false
+        })
+    }
+}   
