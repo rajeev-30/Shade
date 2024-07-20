@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import { User } from '../models/user.model.js';
 import jwt from "jsonwebtoken"
+import { Notification } from '../models/notification.model.js';
 
 //Register
 export const Register = async (req, res) => {
@@ -229,6 +230,9 @@ export const followAndUnFollow = async(req, res) => {
                 $pull:{followers: loggedInUser._id}
             })
 
+            //delete notification when user unfollows
+            await Notification.findOneAndDelete(...[{from:loggedInUser._id, to:userToFollow._id, type: 'follow'}]);
+            
             return res.status(200).json({
                 message:`You unfollowed ${userToFollow.username}`,
                 success:true
@@ -244,6 +248,13 @@ export const followAndUnFollow = async(req, res) => {
             //push loggedInUser id in userToFollow followers list
             await User.findByIdAndUpdate(userToFollow._id, {
                 $push : {followers: loggedInUser._id}
+            })
+
+            //create notification when user follows
+            await Notification.create({
+                from: loggedInUser._id,
+                to: userToFollow._id,
+                type: 'follow'
             })
 
             return res.status(200).json({
