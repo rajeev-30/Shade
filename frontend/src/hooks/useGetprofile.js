@@ -23,8 +23,8 @@ const useGetprofile = (id) => {
         if(error?.response?.data?.isLoginRequired){
           dispatch(setSigninModal(true));
           navigate('/');
-          dispatch(getUser(null));
-          dispatch(getProfile(null));
+          // dispatch(getUser(null));
+          // dispatch(getProfile(null));
         }
     }
   }

@@ -70,7 +70,7 @@ const RightSidebar = () => {
 
             <div className='w-full max-h-96 my-6 bg-gray-800 bg-opacity-50 rounded-xl py-2 overflow-scroll'>
                 {
-                    !searchText &&(
+                    !searchText && user &&(
                         // allUsers?.map(currUser => currUser?._id === user?._id?(""):(<div key={currUser?._id}> <AllusersCard singleUser={currUser}/> </div> ))
                         <>
                             <div className='px-4 pb-4 font-bold text-lg'>Users you can follow</div>
@@ -96,8 +96,6 @@ const RightSidebar = () => {
                         searchedUsers?.map(user=><div key={user?._id} ><AllusersCard singleUser={user}/></div> )
                     )
                 }
-
-
                     {/* Shimmer Effect */}
                 {
                     (!unFollowed && user) &&(

@@ -38,7 +38,21 @@ const userSchema = new mongoose.Schema({
     following:{
         type:Array,
         default: [],
-    }
+    },
+    savedPosts:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref:'Post',
+            default:[]
+        }
+    ],
+    likedPosts:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'Post',
+            default:[]
+        }
+    ]
 }, {timestamps:true});
 
 export const User = mongoose.model('User', userSchema);
