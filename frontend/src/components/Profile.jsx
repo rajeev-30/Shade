@@ -7,10 +7,11 @@ import useFollowAndUnFollow from "../hooks/useFollowAndUnFollow";
 import useGetLikedPosts from "../hooks/useGetLikedPosts";
 import PostCard from "./PostCard";
 import useGetSavedPosts from "../hooks/useGetSavedPosts";
+import useGetUserPosts from "../hooks/useGetUserPosts";
 
 const Profile = () => {
   const { user, profile } = useSelector((store) => store.user);
-  const {likedPosts, savedPosts} = useSelector(store => store.post);
+  const {likedPosts, savedPosts, userPosts} = useSelector(store => store.post);
   const params = useParams();
   const { id } = params;
   const [editProfileModal, setEditProfileModal] = useState(false);
@@ -19,6 +20,7 @@ const Profile = () => {
   useGetprofile(id);
   useGetLikedPosts();
   useGetSavedPosts();
+  useGetUserPosts();
 
   const [followAndUnFollow, isLoading] = useFollowAndUnFollow();
 
@@ -116,15 +118,17 @@ const Profile = () => {
         </div>
 
           {
-            // togglePost==="posts" && (
-              
-            // )
+            togglePost==="posts" && (
+              userPosts?.length==0
+                ? <div><p className="flex justify-center items-center text-xl pt-10 font-semibold">You haven't Posted anything yet! </p></div>
+                : userPosts?.map( (post) => <div key={post._id}> <PostCard post={post}> </PostCard> </div>)
+            )
           } 
           {
             togglePost==="liked" && (
               likedPosts.length==0
                 ? <div><p className="flex justify-center items-center text-xl pt-10 font-semibold">You haven't Liked any other User's post yet! </p></div>
-                : likedPosts.map( (post) => <div key={post._id}> <PostCard post={post}> </PostCard> </div>)
+                : likedPosts?.map( (post) => <div key={post._id}> <PostCard post={post}> </PostCard> </div>)
             )
           }
           {

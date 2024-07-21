@@ -13,6 +13,8 @@ const Feed = () => {
     useGetposts()
     useGetFollowingPosts()
 
+    
+
     return (
         <div className='w-[46%]'>
             <h1 className='text-2xl font-semibold p-4 border-b border-gray-800'>Home</h1>
@@ -66,7 +68,10 @@ const Feed = () => {
             } 
             {
                 !togglePost && (
-                    followingPosts?.map((post)=> <div key={post._id}><PostCard post={post}/></div>)
+                    // followingPosts?.map((post)=> <div key={post._id}><PostCard post={post}/></div>)
+                    followingPosts?.length==0
+                        ? <div><p className="border-t border-gray-800 flex justify-center items-center text-xl pt-10 font-semibold">Your Followings haven't Posted anything yet! </p></div>
+                        : followingPosts?.map( (post) => <div key={post._id}> <PostCard post={post}> </PostCard> </div>)
                 )
             }
         </div>
