@@ -85,7 +85,7 @@ const PostCard = ({post}) => {
       }
       {
         post.img && (
-          <img src={post.img}/>
+          <img src={post.img} className='max-h-[600px] rounded-xl'/>
         )
       }
       <div className='flex justify-between pt-4'>
