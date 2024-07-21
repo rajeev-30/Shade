@@ -38,17 +38,26 @@ const Feed = () => {
             <div className='border-b border-gray-800 '></div>
 
             <div className='w-full flex sticky top-0 bg-[#0F172A] bg-opacity-30 backdrop-blur-3xl'>
-                <button 
+                <div
                     onClick={()=>setTogglePost(true)}
-                    className={`w-[50%] flex justify-center py-4 hover:bg-gray-800 hover:bg-opacity-15  ${togglePost?'border-b-2 border-[#d75f41]':'text-gray-400'}`}>
-                        Home
-                </button>
-                <button 
+                    className='w-1/2 flex justify-center cursor-pointer hover:bg-gray-200 hover:bg-opacity-5'
+                >
+                    <button 
+                        
+                        className={` flex justify-center py-4   ${togglePost?'border-b-[3px] border-[#d75f41]':'text-gray-400'}`}>
+                            Home
+                    </button>
+                </div>
+                <div
                     onClick={()=>setTogglePost(false)}
-                    disabled={!user}
-                    className={`w-[50%] flex justify-center py-4 hover:bg-gray-800 hover:bg-opacity-15  ${togglePost?'text-gray-400':'border-b-2 border-[#d75f41]'}`}>
-                        Following
-                </button>
+                    className='w-1/2 flex justify-center cursor-pointer hover:bg-gray-200 hover:bg-opacity-5'
+                >
+                    <button 
+                        disabled={!user}
+                        className={`flex justify-center py-4 ${togglePost?'text-gray-400':'border-b-[3px] border-[#d75f41]'}`}>
+                            Following
+                    </button>
+                </div>
             </div>
             {
                 togglePost && (

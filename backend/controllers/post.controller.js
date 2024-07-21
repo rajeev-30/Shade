@@ -265,7 +265,7 @@ export const getLikedPosts = async(req, res) => {
             })
         }
 
-        const posts = await Post.find({likes: id})
+        const posts = await Post.find({ likes: id, user: { $ne: id } })
         .populate({
             path:"user",
             select:"username avatar profession createdAt"

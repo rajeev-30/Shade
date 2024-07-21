@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { POST_API_END_POINT } from '../utils/Constant';
 import { getRefresh } from '../redux/postSlice';
 import useFollowAndUnFollow from '../hooks/useFollowAndUnFollow';
+import toast from 'react-hot-toast';
 
 const PostCard = ({post}) => {
   const {user} = useSelector(store=>store.user);
@@ -12,7 +13,7 @@ const PostCard = ({post}) => {
 
   const [followAndUnFollow, isLoading] = useFollowAndUnFollow();
 
-  const likeUnlikeHandler = async(id) => {
+  const likeUnLikeHandler = async(id) => {
     try {
       const res = await axios.post(`${POST_API_END_POINT}/likeandunlike/${id}`,{},{
         withCredentials: true,
@@ -20,6 +21,17 @@ const PostCard = ({post}) => {
       dispatch(getRefresh())
     } catch (error) {
       console.log("likeUnlikeHandler error: " + error)
+    }
+  }
+
+  const saveUnSaveHandler = async(id) => { 
+    try {
+      const res = await axios.post(`${POST_API_END_POINT}/saveandunsave/${id}`,{},{
+        withCredentials: true,
+      })
+      dispatch(getRefresh())
+    } catch (error) {
+      console.log("saveUnSaveHandler error: " + error)
     }
   }
 
@@ -82,14 +94,15 @@ const PostCard = ({post}) => {
               <p className='text-sm text-[#c8bcbc]'>{post.comments.length}</p>
             </button>
 
-            <button onClick={()=>likeUnlikeHandler(post._id)} className='flex gap-2 items-center border border-gray-800 px-2 rounded-full hover:border-red-600'>
+            <button onClick={()=>likeUnLikeHandler(post._id)} className='flex gap-2 items-center border border-gray-800 px-2 rounded-full hover:border-red-600'>
               <Heart width={16} color={`${post.likes.includes(user?._id)?"red":"#c8bcbc"}`}/>
               <p className={`text-sm ${post.likes.includes(user?._id)?'text-red-500':'text-[#c8bcbc]'}`}>{post.likes.length}</p>
             </button>
         </div>
 
-        <button className={`border border-gray-800 px-3 rounded-full hover:border-[#31d0e1]`}>
-          <Bookmark width={16} color={`${user?.savedPosts.includes(post?._id)?"#31d0e1":"#c8bcbc"}`}/>
+        <button onClick={()=>saveUnSaveHandler(post._id)} className={`flex gap-2 items-center border  border-gray-800 px-3 rounded-full hover:border-[#31d0e1]`}>
+          <Bookmark width={16} color={`${post?.saves.includes(user?._id)?"#31d0e1":"#c8bcbc"}`}/>
+          <p className={`text-sm ${post.saves.includes(user?._id)?'text-[#31d0e1]':'text-[#c8bcbc]'}`}>{post.saves.length}</p>
         </button>
       </div>
       

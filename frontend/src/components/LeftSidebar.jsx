@@ -41,7 +41,7 @@ const LeftSidebar = () => {
                 <div className='pt-4 sticky top-0'>
                     <NavLink 
                         to={"/"}
-                        className={`w-fit flex gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-600 hover:bg-opacity-15`}
+                        className={`w-fit flex gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-400 hover:bg-opacity-10`}
                     >
                         <Home size={25} /> <p className="text-xl font-medium">Home</p>
                     </NavLink>
@@ -49,20 +49,20 @@ const LeftSidebar = () => {
                     <NavLink
                         to={"/search"}
                         // onClick={user? <></> : signinModalHandler}
-                        className={`w-fit flex gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-600 hover:bg-opacity-15 `}
+                        className={`w-fit flex gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-400 hover:bg-opacity-10 `}
                     >
                         <Search size={25} /> <p className="text-xl font-medium">Search</p>
                     </NavLink>
 
                     <NavLink to={`/profile/${user?._id}`}
-                        className={`w-fit flex gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-600 hover:bg-opacity-15 `}
+                        className={`w-fit flex gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-400 hover:bg-opacity-10 `}
                     >
                         <User size={25} /> <p className="text-xl font-medium">Profile</p>
                     </NavLink>
 
                     <button
                         onClick={LogoutHandler}
-                        className={`w-fit flex gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-600 hover:bg-opacity-15 `}
+                        className={`w-fit flex gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-400 hover:bg-opacity-10 `}
                     >
                         {/* <Settings size={25} />  */}
                         <LogOut size={25}/>
@@ -71,7 +71,7 @@ const LeftSidebar = () => {
 
                     <NavLink
                         to={"/about"}
-                        className={`w-fit flex gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-600 hover:bg-opacity-15 `}
+                        className={`w-fit flex gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-400 hover:bg-opacity-10 `}
                     >
                         <Store size={25} /> <p className="text-xl font-medium">About Us</p>
                     </NavLink>

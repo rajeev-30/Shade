@@ -4,15 +4,24 @@ import { Link, useParams } from "react-router-dom";
 import useGetprofile from "../hooks/useGetprofile";
 import UpdateProfile from "./UpdateProfile";
 import useFollowAndUnFollow from "../hooks/useFollowAndUnFollow";
+import useGetLikedPosts from "../hooks/useGetLikedPosts";
+import PostCard from "./PostCard";
+import useGetSavedPosts from "../hooks/useGetSavedPosts";
 
 const Profile = () => {
   const { user, profile } = useSelector((store) => store.user);
+  const {likedPosts, savedPosts} = useSelector(store => store.post);
   const params = useParams();
   const { id } = params;
   const [editProfileModal, setEditProfileModal] = useState(false);
+  const [togglePost, setTogglePost] = useState("posts")
 
   useGetprofile(id);
+  useGetLikedPosts();
+  useGetSavedPosts();
+
   const [followAndUnFollow, isLoading] = useFollowAndUnFollow();
+
 
 
   return (
@@ -82,15 +91,50 @@ const Profile = () => {
             <p className="text-gray-400 text-xs">Followings</p>
           </Link>
         </div>
-        <div className="pr-6 flex justify-around pt-6 border-b border-gray-800">
-          <button className="h-8 border-b-2 border-[#d75f41] text-sm font-semibold">
-            Posts
-          </button>
-          <button className="h-8 border-b-2 border-[#d75f41] text-sm font-semibold">
-            Liked posts
-          </button>
+
+        <div className="w-full flex justify-around pt-6 border-b border-gray-800">
+          <div onClick={()=>setTogglePost("posts")} className="w-1/3 hover:bg-gray-400 hover:bg-opacity-10 flex justify-center cursor-pointer">
+            <button 
+              className={`py-4 flex justify-center ${togglePost==="posts"?'border-b-[3px] border-[#d75f41]':'text-gray-400'} text-sm font-semibold`}>
+                Posts
+            </button>
+            </div>
+
+          <div onClick={()=>setTogglePost("liked")} className="w-1/3 hover:bg-gray-400 hover:bg-opacity-10 flex justify-center cursor-pointer">
+            <button
+              className={`py-4 flex justify-center ${togglePost==="liked"?'border-b-[3px] border-[#d75f41]':'text-gray-400'} text-sm font-semibold`}>
+                Liked posts
+            </button>
+            </div>
+
+          <div onClick={()=>setTogglePost("saved")}  className="w-1/3 hover:bg-gray-400 hover:bg-opacity-10 flex justify-center cursor-pointer">
+            <button
+              className={`py-4 flex justify-center ${togglePost==="saved"?'border-b-[3px] border-[#d75f41]':'text-gray-400'} text-sm font-semibold`}>
+                Saved posts
+            </button>
+          </div>
         </div>
-        <div>Add tweets</div>
+
+          {
+            // togglePost==="posts" && (
+              
+            // )
+          } 
+          {
+            togglePost==="liked" && (
+              likedPosts.length==0
+                ? <div><p className="flex justify-center items-center text-xl pt-10 font-semibold">You haven't Liked any other User's post yet! </p></div>
+                : likedPosts.map( (post) => <div key={post._id}> <PostCard post={post}> </PostCard> </div>)
+            )
+          }
+          {
+            togglePost==="saved" && (
+              
+              savedPosts.length===0
+                ?<div><p className="flex justify-center items-center text-xl pt-10 font-semibold">You haven't Saved any post yet! </p></div>
+                :savedPosts?.map( (post) => <div key={post._id}> <PostCard post={post}> </PostCard> </div> )
+            )
+          }
       </div>
       {editProfileModal && (
         <UpdateProfile onClose={() => setEditProfileModal(false)} />
