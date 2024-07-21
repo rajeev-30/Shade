@@ -6,12 +6,13 @@ const router = Router();
 
 router.route("/register").post(Register);
 router.route("/login").post(Login);
-router.route("/allusers").get(getAllUsers);
-router.route("/logout").get(isAuthenticated,Logout);
-router.route("/profile/:id").get(isAuthenticated,getProfile);
-router.route("/getuser").get(isAuthenticated, getUser);
 router.route("/followandunfollow/:id").post(isAuthenticated, followAndUnFollow);
 router.route("/updateprofile").post(isAuthenticated, updateProfile);
+
+router.route("/logout").get(isAuthenticated,Logout);
+router.route("/allusers").get(getAllUsers);
+router.route("/profile/:id").get(isAuthenticated,getProfile);
+router.route("/getuser").get(isAuthenticated, getUser);
 router.route("/followings/:id").get(isAuthenticated, getFollowings);
 router.route("/followers/:id").get(isAuthenticated, getFollowers);
 router.route("/unfollowed").get(isAuthenticated, getUnfollowedUsers);

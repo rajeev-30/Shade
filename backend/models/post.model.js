@@ -21,6 +21,13 @@ const postSchema = new mongoose.Schema({
             default: []
         }
     ],
+    saves:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref:'User',
+            default:[]
+        }
+    ],
     comments: [
         {
             text: {

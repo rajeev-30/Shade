@@ -169,7 +169,6 @@ export const likeAndUnlike = async(req, res) => {
 
         if(post.likes.includes(user._id)){
             await Post.findByIdAndUpdate(post._id, {$pull: {likes: user._id}});
-            await User.findByIdAndUpdate(user._id, {$pull: {likedPosts: post._id}});
 
             //Unlike notification
             await Notification.findOneAndDelete(...[{post: post._id, from: user._id, type: 'like'}]);
@@ -181,7 +180,6 @@ export const likeAndUnlike = async(req, res) => {
         }
         else {
             await Post.findByIdAndUpdate(post._id, {$push: {likes: user._id}});
-            await User.findByIdAndUpdate(user._id, {$push: {likedPosts: post._id}});
 
             // like notification 
             await Notification.create({
@@ -254,4 +252,123 @@ export const commentOnPost = async(req, res) => {
     }
 }
 
+//get Liked posts
+export const getLikedPosts = async(req, res) => {
+    try {
+        const id = req.userId;
+        const user = await User.findById(id);
 
+        if(!user){
+            return res.status(404).json({
+                message: "User not found",
+                success:false
+            })
+        }
+
+        const posts = await Post.find({likes: id})
+        .populate({
+            path:"user",
+            select:"username avatar profession createdAt"
+        })
+        .sort({createdAt:-1});
+
+        return res.status(200).json({
+            message: "Got all liked posts",
+            success:true,
+            posts,
+        })
+    } catch (error) {
+        console.log("getLikedPosts error: " + error.message)
+        
+        return res.status(500).json({
+            message: "Internal server error",
+            success:false
+        })
+    }
+}
+
+//SaveAndUnSave post
+export const saveAndUnSave = async (req, res) => {
+    try {
+        const userId = req.userId;
+        const {id} = req.params;
+
+        const user = await User.findById(userId);
+        const post = await Post.findById(id);
+
+        if(!user){
+            return res.status(404).json({
+                message: "User not found",
+                success:false
+            })
+        } 
+        if(!post){
+            return res.status(404).json({
+                message: "Post not found",
+                success:false
+            })
+        }
+
+        if(post.saves.includes(user._id)){
+            await Post.findByIdAndUpdate(post._id, {$pull: {saves: user._id}})
+
+            return res.status(200).json({
+                message: "You Unsaved a post",
+                success:true
+            })
+        }
+        else{
+            await Post.findByIdAndUpdate(post._id, {$push: {saves: user._id}})
+
+            return res.status(200).json({
+                message: "You Saved a post",
+                success:true
+            })
+        }
+
+        
+
+    } catch (error) {
+        console.log("saveAndUnSave error: " + error.message)
+        
+        return res.status(500).json({
+            message: "Internal server error",
+            success:false
+        })
+    }
+}
+
+//get Save posts
+export const getSavedPosts = async (req,res) =>{
+    try {
+        const id = req.userId;
+        const user = await User.findById(id);
+
+        if(!user){
+            return res.status(404).json({
+                message: "User not found",
+                success:false
+            })
+        }
+
+        const posts = await Post.find({saves: id})
+        .populate({
+            path:"user",
+            select:"username avatar profession createdAt"
+        })
+        .sort({createdAt:-1});
+
+        return res.status(200).json({
+            message: "Got all saved posts",
+            success:true,
+            posts,
+        })
+    } catch (error) {
+        console.log("getSavedPost error: " + error.message)
+        
+        return res.status(500).json({
+            message: "Internal server error",
+            success:false
+        })
+    }
+}

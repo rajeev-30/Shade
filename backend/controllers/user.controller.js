@@ -51,7 +51,7 @@ export const Register = async (req, res) => {
         });
 
         const tokenData = { userId: user._id }; 
-        const token = jwt.sign(tokenData, process.env.JWT_SECRET, {expiresIn: '1d'});
+        const token = jwt.sign(tokenData, process.env.JWT_SECRET, {expiresIn: '30d'});
 
 
         user.password = null;  //Because we don't want to send password to user, it doesn't save in the database, 
@@ -59,6 +59,7 @@ export const Register = async (req, res) => {
         return res.status(201)
             .cookie('token', token, {
                 httpOnly: true,
+                maxAge: 30 * 24 * 60 * 60 * 1000,
                 // secure: true
             })
             .json({
@@ -108,12 +109,13 @@ export const Login = async(req, res) =>{
         const tokenData = {
             userId:user._id
         }
-        const token = jwt.sign(tokenData, process.env.JWT_SECRET,{expiresIn:'1d'})
+        const token = jwt.sign(tokenData, process.env.JWT_SECRET,{expiresIn:'30d'})
 
         user.password = null;  //Because we don't want to send password to user, it doesn't save in the database, 
         return res.status(200)
         .cookie('token', token, {
             httpOnly:true, 
+            maxAge: 30 * 24 * 60 * 60 * 1000,
             // secure: true
         })
         .json({
