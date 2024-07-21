@@ -2,7 +2,7 @@ import { Image } from 'lucide-react'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import useGetposts from '../hooks/useGetposts'
-import PostsCard from './PostsCard'
+import PostCard from './PostCard'
 import useGetFollowingPosts from '../hooks/useGetFollowingsPosts'
 
 const Feed = () => {
@@ -33,30 +33,31 @@ const Feed = () => {
                 <div className='flex items-center'>
                     <Image/>
                 </div>
-                <button disabled={!user} className='bg-[#d75f41] px-4 py-2 rounded-full'>post</button>
+                <button disabled={!user} className={`bg-[#d75f41] px-4 py-2 rounded-full ${user?'':'opacity-50'}`}>post</button>
             </div>
             <div className='border-b border-gray-800 '></div>
 
             <div className='w-full flex sticky top-0 bg-[#0F172A] bg-opacity-30 backdrop-blur-3xl'>
                 <button 
                     onClick={()=>setTogglePost(true)}
-                    className={`w-[50%] flex justify-center py-4 hover:bg-gray-800 hover:bg-opacity-15 cursor-pointer ${togglePost?'border-b-2 border-[#d75f41]':'text-gray-400'}`}>
+                    className={`w-[50%] flex justify-center py-4 hover:bg-gray-800 hover:bg-opacity-15  ${togglePost?'border-b-2 border-[#d75f41]':'text-gray-400'}`}>
                         Home
-                    </button>
+                </button>
                 <button 
                     onClick={()=>setTogglePost(false)}
-                    className={`w-[50%] flex justify-center py-4 hover:bg-gray-800 hover:bg-opacity-15 cursor-pointer ${togglePost?'text-gray-400':'border-b-2 border-[#d75f41]'}`}>
+                    disabled={!user}
+                    className={`w-[50%] flex justify-center py-4 hover:bg-gray-800 hover:bg-opacity-15  ${togglePost?'text-gray-400':'border-b-2 border-[#d75f41]'}`}>
                         Following
-                    </button>
+                </button>
             </div>
             {
                 togglePost && (
-                    posts?.map((post)=> <div key={post._id}><PostsCard post={post}/></div>)
+                    posts?.map((post)=> <div key={post._id}><PostCard post={post}/></div>)
                 )
             } 
             {
                 !togglePost && (
-                    followingPosts?.map((post)=> <div key={post._id}><PostsCard post={post}/></div>)
+                    followingPosts?.map((post)=> <div key={post._id}><PostCard post={post}/></div>)
                 )
             }
         </div>

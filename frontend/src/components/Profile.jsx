@@ -12,7 +12,7 @@ const Profile = () => {
   const [editProfileModal, setEditProfileModal] = useState(false);
 
   useGetprofile(id);
-  const followAndUnFollow = useFollowAndUnFollow();
+  const [followAndUnFollow, isLoading] = useFollowAndUnFollow();
 
 
   return (
@@ -39,7 +39,7 @@ const Profile = () => {
                 user?.following?.includes(id) ? "" : "bg-[#d75f41] border-none"
               }`}
             >
-              {user?.following?.includes(id) ? "Unfollow" : "Follow"}
+              {user?.following?.includes(id) ? (isLoading?"Loading...":"Unfollow") : (isLoading?"Loading...":"Follow")}
             </button>
           )}
         </div>
