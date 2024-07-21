@@ -21,7 +21,7 @@ export const createPost = async(req,res) =>{
         }
 
         if(!text && !img) {
-            return res.status(404).json({
+            return res.status(400).json({
                 message: "Text or Image required",
                 success:false
             })

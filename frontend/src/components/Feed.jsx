@@ -4,26 +4,31 @@ import { useSelector } from 'react-redux'
 import useGetposts from '../hooks/useGetposts'
 import PostCard from './PostCard'
 import useGetFollowingPosts from '../hooks/useGetFollowingsPosts'
+import useCreatePost from '../hooks/useCreatePost'
 
 const Feed = () => {
     const {user} = useSelector(store=>store.user)
     const {posts, followingPosts} = useSelector(store=>store.post)
     const [togglePost, setTogglePost] = useState(true)
+    const [text, setText] = useState("");
+    const [img, setImg] = useState(null)
 
     useGetposts()
     useGetFollowingPosts()
 
-    
+    const createPost = useCreatePost();
 
     return (
         <div className='w-[46%]'>
             <h1 className='text-2xl font-semibold p-4 border-b border-gray-800'>Home</h1>
             <div className='flex gap-4'>
-                {/* Profile photo */}
                 <div className='pl-4 pt-4'>
                     <img src={`${user?.avatar}`} alt="" className='w-10'/>
                 </div>
+
                 <textarea
+                    value={text}
+                    onChange={(e)=>setText(e.target.value)}
                     id="message"
                     name="message"
                     rows="4"
@@ -31,12 +36,20 @@ const Feed = () => {
                     placeholder="Write Fearlessly..."
                 ></textarea>
             </div>
+
             <div className=' px-4 flex justify-between py-2 '>
                 <div className='flex items-center'>
                     <Image/>
                 </div>
-                <button disabled={!user} className={`bg-[#d75f41] px-4 py-2 rounded-full ${user?'':'opacity-50'}`}>post</button>
+
+                <button
+                    onClick={()=>createPost(text, img, setText)}
+                    disabled={!user} 
+                    className={`bg-[#d75f41] px-4 py-2 rounded-full ${user?'':'opacity-50'}`}>
+                    post
+                </button>
             </div>
+
             <div className='border-b border-gray-800 '></div>
 
             <div className='w-full flex sticky top-0 bg-[#0F172A] bg-opacity-30 backdrop-blur-3xl'>

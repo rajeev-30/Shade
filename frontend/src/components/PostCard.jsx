@@ -29,7 +29,8 @@ const PostCard = ({post}) => {
       const res = await axios.post(`${POST_API_END_POINT}/saveandunsave/${id}`,{},{
         withCredentials: true,
       })
-      dispatch(getRefresh())
+      dispatch(getRefresh());
+      toast.success(res.data.message);
     } catch (error) {
       console.log("saveUnSaveHandler error: " + error)
     }
@@ -41,6 +42,7 @@ const PostCard = ({post}) => {
         withCredentials: true,
       })
       dispatch(getRefresh())
+      toast.success(res.data.message);
     } catch (error) {
       console.log("deletePostHandler error: " + error)
     }
