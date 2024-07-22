@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Bookmark, EllipsisVertical, Heart, MessageCircle } from 'lucide-react'
+import { Bookmark, EllipsisVertical, Heart, MessageCircle, Trash2, UserRoundMinus, UserRoundPlus, UserRoundX } from 'lucide-react'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { POST_API_END_POINT } from '../utils/Constant';
@@ -81,13 +81,57 @@ const PostCard = ({post, openPost=false}) => {
                 {
                   user?._id!=post.user._id && (
                     user?.following?.includes(post.user._id)
-                      ?(<li><button onClick={()=>followAndUnFollow(post.user._id)}>{isLoading?"Loading...":"Unfollow"}</button></li>)
-                      :(<li><button onClick={()=>followAndUnFollow(post.user._id)}>{isLoading?"Loading...":"Follow"}</button></li>)
+                      ? (<li>
+                            <button 
+                              onClick={()=>followAndUnFollow(post.user._id)}>
+                              { isLoading ?
+                                <div className='flex gap-2 items-center'>
+                                  <UserRoundX width={16}/> Loading...
+                                </div>
+                              :
+                                <div className='flex gap-2 items-center'>
+                                  <UserRoundX width={16}/> Unfollow {post.user.username}
+                                </div>
+                              }
+                            </button>
+                        </li>
+
+                      ):( 
+
+                      <li>
+                          <button 
+                            onClick={()=>followAndUnFollow(post.user._id)}>
+                            { isLoading ?
+                                <div className='flex gap-2 items-center font-semibold'>
+                                  <UserRoundPlus width={16} /> Loading...
+                                </div>
+                              :
+                                <div className='flex gap-2 items-center font-semibold'>
+                                  <UserRoundPlus width={16} /> Follow {post.user.username}
+                                </div>
+                              }
+                          </button>
+                      </li>)
                   )
                 }
                 {
                   user?._id===post.user._id && (
-                    <li><button onClick={()=>deletePostHandler(post._id)}>{isLoadingDeletePost?"Deleting...":"Delete post"}</button></li>
+                    <li> 
+                      <button 
+                        onClick={ () => deletePostHandler(post._id) }> {
+
+                          isLoadingDeletePost ? (
+                            <div className='flex gap-2 items-center text-red-600 font-semibold'>
+                              <Trash2 width={16} color='red'/> Deleting...
+                            </div>
+                            ) : (
+                            <div className='flex gap-2 items-center text-red-600 font-semibold'>
+                              <Trash2 width={16} color='red'/> Delete 
+                            </div>
+                            )}
+
+                      </button>
+                    </li>
                   )
                 }
               </ul>
