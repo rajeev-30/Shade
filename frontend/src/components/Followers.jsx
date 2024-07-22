@@ -57,6 +57,7 @@ const Followers = () => {
             !followers && (
                 <>
                 <UserShimmer/>
+                {/* <UserShimmer/>
                 <UserShimmer/>
                 <UserShimmer/>
                 <UserShimmer/>
@@ -66,8 +67,7 @@ const Followers = () => {
                 <UserShimmer/>
                 <UserShimmer/>
                 <UserShimmer/>
-                <UserShimmer/>
-                <UserShimmer/>
+                <UserShimmer/> */}
                 </>
             )
         }
