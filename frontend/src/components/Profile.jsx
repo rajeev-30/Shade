@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import useGetprofile from "../hooks/useGetprofile";
 import UpdateProfile from "./UpdateProfile";
 import useFollowAndUnFollow from "../hooks/useFollowAndUnFollow";
@@ -10,6 +10,7 @@ import useGetSavedPosts from "../hooks/useGetSavedPosts";
 import useGetUserPosts from "../hooks/useGetUserPosts";
 import PostShimmer from "./Shimmer";
 import useGetMediaPosts from "../hooks/useGetMediaPosts";
+import { ArrowLeft } from "lucide-react";
 
 const Profile = () => {
   const { user, profile } = useSelector((store) => store.user);
@@ -17,8 +18,9 @@ const Profile = () => {
   const params = useParams();
   const { id } = params;
   const [editProfileModal, setEditProfileModal] = useState(false);
-  const [togglePost, setTogglePost] = useState("posts")
+  const [togglePost, setTogglePost] = useState()
 
+  const navigate = useNavigate();
   useGetprofile(id);
   useGetLikedPosts();
   useGetSavedPosts();
@@ -28,15 +30,18 @@ const Profile = () => {
   const [followAndUnFollow, isLoading] = useFollowAndUnFollow();
 
   useEffect(()=>{
-    setTogglePost('posts')
+      setTogglePost('posts')
   },[id])
-  
+
   return (
     <>
       <div className="w-[46%] min-h-screen max-h-full">
-        <h1 className="text-2xl font-semibold p-4 border-b border-gray-800">
-          Profile
-        </h1>
+        <div className='p-4 flex items-center gap-4 border-b border-gray-800'>
+                <button onClick={()=>navigate(-1)}>
+                    <ArrowLeft/>
+                </button>
+                <h1 className='text-2xl font-semibold'>Profile</h1>
+        </div>
 
         { profile
             ? <>

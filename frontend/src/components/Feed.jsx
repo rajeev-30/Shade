@@ -17,6 +17,7 @@ const Feed = () => {
 
     useGetposts()
     useGetFollowingPosts()
+    
 
     const [createPost, isLoading] = useCreatePost();
 

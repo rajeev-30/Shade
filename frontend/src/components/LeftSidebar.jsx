@@ -13,6 +13,7 @@ const LeftSidebar = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+
     const LogoutHandler = async() =>{
         try {
             const res = await axios.get(`${USER_API_END_POINT}/logout`,{
