@@ -19,6 +19,7 @@ const OpenPost = () => {
     const navigate = useNavigate();
     const params = useParams();
     const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(false)
 
     const {id} = params;
 
@@ -42,6 +43,7 @@ const OpenPost = () => {
     },[id, refresh])
 
     const createCommentHandler = async(id) =>{
+        setIsLoading(true);
         try {
             const res = await axios.post(`${POST_API_END_POINT}/comment/${id}`,{text}, {
                 withCredentials:true,
@@ -52,6 +54,8 @@ const OpenPost = () => {
         } catch (error) {
             console.log("createCommentHandler error: ", error)
             toast.error(error?.response?.data?.message)
+        }finally{
+            setIsLoading(false);
         }
     }
 
@@ -117,7 +121,7 @@ const OpenPost = () => {
                     onClick={()=>createCommentHandler(post?._id)}
                     className={`px-3 py-2 bg-[#d75f41] rounded-full text-sm font-semibold ${user && text?'':'opacity-50'}`}
                     >
-                        Reply
+                        {isLoading?'Replying...':'Reply'}
                 </button>
             </div>
         </div>

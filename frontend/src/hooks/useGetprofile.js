@@ -23,15 +23,13 @@ const useGetprofile = (id) => {
         if(error?.response?.data?.isLoginRequired){
           dispatch(setSigninModal(true));
           navigate('/');
-          // dispatch(getUser(null));
-          // dispatch(getProfile(null));
         }
     }
   }
 
   useEffect(()=>{
     fetchProfile();
-  },[refresh,id])
+  },[refresh, id])
 
 }
 

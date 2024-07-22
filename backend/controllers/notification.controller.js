@@ -21,6 +21,10 @@ export const getNotifications = async(req, res) =>{
             path: "from",
             select:"username createdAt"
         })
+        .populate({
+            path: "post",
+            select:"text img"
+        })
         .sort({createdAt: -1})
 
         

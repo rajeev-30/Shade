@@ -93,7 +93,7 @@ const RightSidebar = () => {
                 }
  
                 {/* {
-                    !user &&  !searchText && !unFollowed &&(
+                    !user &&  !searchText &&(
                         !allUsers
                         ? <UserShimmer/>
                         : allUsers?.map(currUser => currUser?._id === user?._id?(""):(<div key={currUser?._id}> <AllusersCard singleUser={currUser}/> </div> ))

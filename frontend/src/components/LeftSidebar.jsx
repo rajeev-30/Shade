@@ -20,9 +20,7 @@ const LeftSidebar = () => {
                 withCredentials: true,
             })
 
-            // dispatch(getUser(null));
-            // dispatch(getProfile(null));
-            dispatch(getUnFollowed(null));
+            // dispatch(getUnFollowed(null));
             dispatch(getRefresh())
             toast.success(res?.data?.message)
             navigate('/');
