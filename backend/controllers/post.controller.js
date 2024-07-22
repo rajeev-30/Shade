@@ -124,6 +124,10 @@ export const getPost = async(req, res) => {
             path:"user",
             select: "username avatar profession createdAt"
         })
+        .populate({
+            path: "comments.user",
+            select: "username avatar createdAt"
+        })
         .sort({createdAt:-1});
 
         if(!post){
@@ -246,7 +250,7 @@ export const likeAndUnlike = async(req, res) => {
     }
 }   
 
-//Comment on a post ans notification
+//Comment on a post and notification
 export const commentOnPost = async(req, res) => {
     try {
         const userId = req.userId;
@@ -448,3 +452,43 @@ export const getUserPosts = async (req, res) => {
         })
     }
 }
+
+//Delete comment and notification
+export const deleteComment = async(req, res) => {
+    try {
+        const {postId, commentId} = req.params
+    
+        const post = await Post.findById(postId);
+        const comment = await Post.find({comments: {_id: commentId}});
+        
+        if(!post) {
+            return res.status(404).json({
+                message: "Post not found",
+                success:false
+            })
+        }
+        if(!comment) {
+            return res.status(404).json({
+                message: "Comment not found",
+                success:false
+            })
+        }
+
+        await Post.findByIdAndUpdate(postId, {$pull : {comments: {_id: commentId}}});
+
+        await Notification.findOneAndDelete({from: req.userId, to:post.user, type: 'comment'})
+        
+        return res.status(200).json({
+            message: "Comment deleted successfully",
+            success: true,
+        })
+    } catch (error) {
+        console.log("Delete Comment error: " , error.message)
+        
+        return res.status(500).json({
+            message: "Internal server error",
+            success:false
+        })
+    }
+}
+

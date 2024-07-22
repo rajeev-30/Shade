@@ -1,6 +1,6 @@
 import express from "express";
 import isAuthenticated from "../db/auth.js";
-import { commentOnPost, createPost, deletePost, getAllPosts, getFollowingPosts, getLikedPosts, getPost, getSavedPosts, getUserPosts, likeAndUnlike, saveAndUnSave } from "../controllers/post.controller.js";
+import { commentOnPost, createPost, deleteComment, deletePost, getAllPosts, getFollowingPosts, getLikedPosts, getPost, getSavedPosts, getUserPosts, likeAndUnlike, saveAndUnSave } from "../controllers/post.controller.js";
 
 const router = express.Router();
 
@@ -8,6 +8,7 @@ router.route('/create').post(isAuthenticated, createPost);
 router.route('/likeandunlike/:id').post(isAuthenticated,likeAndUnlike);
 router.route('/comment/:id').post(isAuthenticated,commentOnPost);
 router.route('/saveandunsave/:id').post(isAuthenticated,saveAndUnSave);
+router.route('/deletecomment/:postId/:commentId').post(isAuthenticated,deleteComment);
 
 router.route('/delete/:id').delete(isAuthenticated, deletePost);
 
