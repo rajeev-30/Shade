@@ -15,11 +15,15 @@ export const getNotifications = async(req, res) =>{
             })
         }
         
+        await Notification.updateMany({to: user._id}, {read: true});
+
         const notifications = await Notification.find({to: user._id}).populate({
             path: "from",
             select:"username createdAt"
         })
         .sort({createdAt: -1})
+
+        
         return res.status(200).json({
             message:"Got all notifications",
             success:true,

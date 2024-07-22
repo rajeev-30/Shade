@@ -114,6 +114,41 @@ export const getAllPosts = async(req, res) => {
     }
 }
 
+//Get single post
+export const getPost = async(req, res) => {
+    try {
+        const {id} = req.params;
+
+        const post = await Post.findById(id)
+        .populate({
+            path:"user",
+            select: "username avatar profession createdAt"
+        })
+        .sort({createdAt:-1});
+
+        if(!post){
+            return res.status(404).json({
+                message: "Post not found",
+                success:false
+            })
+        }
+
+        return res.status(200).json({
+            message:"Got a post",
+            success:true,
+            post
+        })
+
+    } catch (error) {
+        console.log("getPost error: " + error.message)
+        
+        return res.status(500).json({
+            message: "Internal server error",
+            success:false
+        })
+    }
+}
+
 //Get Following posts
 export const getFollowingPosts = async(req, res) => {
     try {
@@ -379,10 +414,10 @@ export const getSavedPosts = async (req,res) =>{
     }
 }
 
-//get user post
-export const getUserPost = async (req, res) => {
+//get user posts
+export const getUserPosts = async (req, res) => {
     try {
-        const id = req.userId;
+        const {id} = req.params;
         const user = await User.findById(id);
 
         if(!user){
