@@ -6,6 +6,8 @@ import Search  from './Search'
 import Profile from './Profile'
 import Followings from './Followings'
 import Followers from './Followers'
+import Notifications from './Notifications'
+import OpenPost from './OpenPost'
 
 const Body = () => {
 
@@ -21,6 +23,14 @@ const Body = () => {
                 {
                     path: '/search',
                     element: <Search/>
+                },
+                {
+                    path: '/notifications',
+                    element: <Notifications/>
+                },
+                {
+                    path:'/post/:id',
+                    element:<OpenPost/>
                 },
                 {
                     path: '/profile/:id',

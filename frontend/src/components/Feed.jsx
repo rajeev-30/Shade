@@ -5,6 +5,7 @@ import useGetposts from '../hooks/useGetposts'
 import PostCard from './PostCard'
 import useGetFollowingPosts from '../hooks/useGetFollowingsPosts'
 import useCreatePost from '../hooks/useCreatePost'
+import PostShimmer from './Shimmer'
 
 const Feed = () => {
     const {user} = useSelector(store=>store.user)
@@ -85,7 +86,7 @@ const Feed = () => {
                         className='bg-gray-700 rounded-full p-1 cursor-pointer'/>
                     </div>
 
-                    <img src={img} className='pl-16 pr-4 max-h-[600px] rounded-xl' />
+                    <img src={img} className='pl-16 pr-4 max-h-[600px] rounded-xl object-cover' />
                 </>)
             }
 
@@ -130,7 +131,9 @@ const Feed = () => {
             </div>
             {
                 togglePost && (
-                    posts?.map((post)=> <div key={post._id}><PostCard post={post}/></div>)
+                    !posts
+                    ? <PostShimmer/>
+                    : posts?.map((post)=> <div key={post._id}><PostCard post={post}/></div>)
                 )
             } 
             {

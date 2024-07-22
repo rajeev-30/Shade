@@ -68,22 +68,37 @@ const RightSidebar = () => {
                     placeholder='Search users'/>
             </div>
 
-            <div className='w-full max-h-96 my-6 bg-gray-800 bg-opacity-50 rounded-xl py-2 overflow-scroll'>
+            <div className='w-full max-h-80 my-6 border border-gray-800 bg-opacity-50 rounded-xl py-2 overflow-scroll'>
+                {
+                    !unFollowed && !searchText &&(
+                        <div className='h-80'>
+                            {
+                                allUsers
+                                ? allUsers?.map(currUser => currUser?._id === user?._id?(""):(<div key={currUser?._id}> <AllusersCard singleUser={currUser}/> </div> ))
+                                : <UserShimmer/>
+                            }
+                        </div>
+                    )
+                }
                 {
                     !searchText && user &&(
                         // allUsers?.map(currUser => currUser?._id === user?._id?(""):(<div key={currUser?._id}> <AllusersCard singleUser={currUser}/> </div> ))
                         <>
                             <div className='px-4 pb-4 font-bold text-lg'>Users you can follow</div>
-                            { unFollowed?.map(currUser => <div key={currUser?._id}> <AllusersCard singleUser={currUser}/> </div> ) }
+                            { unFollowed 
+                                ? unFollowed?.map(currUser => <div key={currUser?._id}> <AllusersCard singleUser={currUser}/> </div> )
+                                : <UserShimmer/> }
                         </>
                     ) 
                 }
  
-                {
-                    !user &&  !searchText && (
-                        allUsers?.map(currUser => currUser?._id === user?._id?(""):(<div key={currUser?._id}> <AllusersCard singleUser={currUser}/> </div> ))
+                {/* {
+                    !user &&  !searchText && !unFollowed &&(
+                        !allUsers
+                        ? <UserShimmer/>
+                        : allUsers?.map(currUser => currUser?._id === user?._id?(""):(<div key={currUser?._id}> <AllusersCard singleUser={currUser}/> </div> ))
                     )
-                }
+                } */}
                 {
                     searchText && searchedUsers?.length===0 && (
                         <div className='p-4'>
@@ -97,7 +112,7 @@ const RightSidebar = () => {
                     )
                 }
                     {/* Shimmer Effect */}
-                {
+                {/* {
                     (!unFollowed && user) &&(
                         <>
                         <UserShimmer/>
@@ -105,10 +120,9 @@ const RightSidebar = () => {
                         <UserShimmer/>
                         <UserShimmer/>
                         <UserShimmer/>
-                        <UserShimmer/>
                         </>
                     )
-                } 
+                }  */}
             </div>
         </div>
     </div>

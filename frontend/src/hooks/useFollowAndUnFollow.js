@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { USER_API_END_POINT } from '../utils/Constant'
 import { useDispatch } from 'react-redux'
-import { getRefresh } from '../redux/userSlice'
+import { getRefresh, setSigninModal } from '../redux/userSlice'
 import toast from 'react-hot-toast'
 
 const useFollowAndUnFollow = () => {
@@ -19,6 +19,9 @@ const useFollowAndUnFollow = () => {
         } catch (error) {
             console.log("FollowAndUnFollow error: " + error?.message);
             // toast.error(error?.response?.data?.message);
+            if(error?.response?.data?.isLoginRequired){
+                dispatch(setSigninModal(true));
+            }
         }finally{
 
             setIsLoading(false)

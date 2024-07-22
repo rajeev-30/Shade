@@ -2,10 +2,12 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     posts:null,
+    post:null,
     userPosts:null,
     followingPosts:null,
     likedPosts:null,
     savedPosts:null,
+    mediaPosts:null,
     refresh: false,
 }
 
@@ -15,6 +17,9 @@ const postSlice = createSlice({
     reducers: {
         getPosts: (state, action) =>{
             state.posts = action.payload
+        },
+        getPost: (state, action) =>{
+            state.post = action.payload
         },
         getUserPosts: (state, action) =>{
             state.userPosts = action.payload
@@ -30,9 +35,12 @@ const postSlice = createSlice({
         },
         getSavedPosts: (state, action) =>{
             state.savedPosts = action.payload
+        },
+        getMediaPosts: (state, action) =>{
+            state.mediaPosts = action.payload
         }
     }
 })
 
-export const {getPosts, getFollowingPosts, getRefresh, getLikePosts, getSavedPosts, getUserPosts} = postSlice.actions
+export const {getPosts, getPost, getFollowingPosts, getRefresh, getLikePosts, getSavedPosts, getUserPosts, getMediaPosts} = postSlice.actions
 export default postSlice.reducer

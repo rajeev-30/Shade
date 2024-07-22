@@ -1,4 +1,4 @@
-import { Home, Search, User, Store, LogOut } from 'lucide-react'
+import { Home, Search, User, Store, LogOut, Bell } from 'lucide-react'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Signin from './SignIn';
@@ -48,10 +48,15 @@ const LeftSidebar = () => {
 
                     <NavLink
                         to={"/search"}
-                        // onClick={user? <></> : signinModalHandler}
                         className={`w-fit flex gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-400 hover:bg-opacity-10 `}
                     >
                         <Search size={25} /> <p className="text-xl font-medium">Search</p>
+                    </NavLink>
+                    <NavLink
+                        to={"/notifications"}
+                        className={`w-fit flex gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-400 hover:bg-opacity-10 `}
+                    >
+                        <Bell size={25} /> <p className="text-xl font-medium">Notifications</p>
                     </NavLink>
 
                     <NavLink to={`/profile/${user?._id}`}

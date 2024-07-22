@@ -19,9 +19,14 @@ const useCreatePost = () => {
             setText("");
             setImg(null)
             toast.success(res.data.message);
+            // console.log("createPost error: " + res);
         } catch (error) {
-            console.log("createPost error: " + error);
-            toast.error(error?.response?.data?.message);
+            console.log("createPost error: ", error);
+            if(error?.response?.data?.message)
+                toast.error(error?.response?.data?.message);
+            if(error.request.status===413){
+                toast.error("Select image less than 5mb");
+            }
         }finally{
             setIsLoading(false);
         }
