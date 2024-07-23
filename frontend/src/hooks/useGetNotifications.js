@@ -9,6 +9,8 @@ import { setSigninModal } from '../redux/userSlice'
 const useGetNotifications = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate()
+    const {refresh} = useSelector(store=>store.notification)
+    
     const fetchNotifications = async() => {
         try {
             const res = await axios.get(`${NOTIFICATION_API_END_POINT}/notifications`, {
@@ -26,7 +28,7 @@ const useGetNotifications = () => {
 
     useEffect(()=>{
         fetchNotifications()
-    },[])
+    },[refresh])
 
 }
 

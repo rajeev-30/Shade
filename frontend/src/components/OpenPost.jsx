@@ -34,7 +34,7 @@ const OpenPost = () => {
             })
             dispatch(getPost(res.data.post));
         } catch (error) {
-            console.log("getPost error: " + error);
+            console.log("getPost error: " , error);
         }
     }
 
@@ -63,7 +63,7 @@ const OpenPost = () => {
         const lines = text.split('\n');
         let rowCount = lines.length;
         lines.forEach(line => {
-          rowCount += Math.floor(line.length / 50); // Assume average line width is 50 characters
+          rowCount += Math.floor(line.length / 70); // Assume average line width is 70 characters
         });
         // Constrain the row count between 1 and 10
         if (rowCount < 1) {

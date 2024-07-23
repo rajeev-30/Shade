@@ -1,4 +1,4 @@
-import { EllipsisVertical, Trash2, UserRoundMinus, UserRoundPlus, UserRoundX } from 'lucide-react'
+import { Ellipsis, EllipsisVertical, Trash2, UserRoundMinus, UserRoundPlus, UserRoundX } from 'lucide-react'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import useFollowAndUnFollow from '../hooks/useFollowAndUnFollow'
@@ -6,6 +6,7 @@ import axios from 'axios'
 import { POST_API_END_POINT } from '../utils/Constant'
 import toast from 'react-hot-toast'
 import { getRefresh } from '../redux/postSlice'
+
 
 const Comments = ({ comment, postId }) => {
     const {user} = useSelector(store=>store.user)
@@ -36,12 +37,12 @@ const Comments = ({ comment, postId }) => {
                 <img src={comment.user.avatar} width={35} />
                 <div>
                     <p className='text-sm font-semibold pb-1'>{comment.user.username}</p>
-                    <p className='text-sm text-gray-300 '>{comment.text}</p>
+                    <p className='text-sm text-gray-200 '>{comment.text}</p>
                 </div>
             </div>
 
             <div className="dropdown dropdown-end ">
-                <button className=""><EllipsisVertical width={15} /></button>
+                <button className=""><Ellipsis width={15} /></button>
                 <ul className="relative top-0 menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
                     {
                         user?._id != comment.user._id && (

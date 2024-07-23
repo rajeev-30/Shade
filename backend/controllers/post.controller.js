@@ -73,6 +73,9 @@ export const deletePost = async(req, res)=>{
 
         await Post.findByIdAndDelete(id);
 
+        //Delete all notifications related to this post
+        await Notification.deleteMany({post: id});
+
         return res.status(200).json({
             message:"Post deleted successfully",
             success:true
@@ -226,13 +229,16 @@ export const likeAndUnlike = async(req, res) => {
         else {
             await Post.findByIdAndUpdate(post._id, {$push: {likes: user._id}});
 
-            // like notification 
-            await Notification.create({
-                from: user._id,
-                to: post.user,
-                post: post._id,
-                type: 'like'
-            });
+            // like notification
+            //if user like his own post then do not send notification
+            if(!user._id.equals(post.user)) {
+                await Notification.create({
+                    from: user._id,
+                    to: post.user,
+                    post: post._id,
+                    type: 'like'
+                });
+            }
 
             return res.status(200).json({
                 message: "You liked the Post",
@@ -276,12 +282,16 @@ export const commentOnPost = async(req, res) => {
         await Post.findByIdAndUpdate(post._id, {$push: {comments: {text,user:user._id}}});
 
         //comment notification
-        await Notification.create({
-            from: user._id,
-            to: post.user,
-            post: post._id,
-            type: 'comment'
-        })
+        //if user comment on his own post then do not send notification
+        if(!user._id.equals(post.user)) {
+            await Notification.create({
+                from: user._id,
+                to: post.user,
+                post: post._id,
+                commentText: text,
+                type: 'comment'
+            })
+        }
 
         return res.status(200).json({
             message:"Comment created successfully",

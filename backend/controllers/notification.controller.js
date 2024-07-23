@@ -60,7 +60,7 @@ export const deleteNotifications = async (req, res) => {
         await Notification.deleteMany({to: user._id});
 
         return res.status(200).json({
-            message:"Deleted all notifications",
+            message:"All Notifications Deleted",
             success:true,
         })
 
@@ -87,7 +87,7 @@ export const deleteNotification = async (req, res) => {
             })
         }
 
-        await Notification.deleteMany(id);
+        await Notification.findByIdAndDelete(id);
 
         return res.status(200).json({
             message:"Notification Deleted",
