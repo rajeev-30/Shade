@@ -100,9 +100,9 @@ const SignIn = () => {
                     <input 
                         value={username} 
                         onChange={(e)=>setUsername(e.target.value)} 
-                        className='w-full bg-gray-800 bg-opacity-0 outline-none ' 
+                        className='w-full bg-gray-800 bg-opacity-0 outline-none placeholder:opacity-20' 
                         type="text" 
-                        placeholder='username' />
+                        placeholder='Anonymous username' />
                 </div>
                 {
                     !isLogin && (<>
@@ -112,9 +112,9 @@ const SignIn = () => {
                             <input 
                                 value={profession} 
                                 onChange={(e)=>setProfession(e.target.value)} 
-                                className='w-full bg-gray-800 bg-opacity-0 outline-none' 
+                                className='w-full bg-gray-800 bg-opacity-0 outline-none placeholder:opacity-20' 
                                 type="text" 
-                                placeholder='profession' />
+                                placeholder='Profession eg: Engineer...' />
                         </div>
 
                         <div className='flex gap-3 w-3/4 py-4 px-4 bg-gray-800 bg-opacity-50 rounded-xl'>
@@ -123,9 +123,9 @@ const SignIn = () => {
                             <input 
                                 value={bio} 
                                 onChange={(e)=>setBio(e.target.value)} 
-                                className='w-full bg-gray-800 bg-opacity-0 outline-none ' 
+                                className='w-full bg-gray-800 bg-opacity-0 outline-none placeholder:opacity-20' 
                                 type="text" 
-                                placeholder='bio' />
+                                placeholder='Bio' />
                         </div>
                     </>)
                 }
@@ -135,9 +135,9 @@ const SignIn = () => {
                     <input 
                         value={password} 
                         onChange={(e)=>setPassword(e.target.value)} 
-                        className='w-full bg-gray-800 bg-opacity-0 outline-none ' 
+                        className='w-full bg-gray-800 bg-opacity-0 outline-none placeholder:opacity-20' 
                         type={`${showPass?"text":"password"}`} 
-                        placeholder='password' />
+                        placeholder='Password' />
 
                     <div  onClick={ () => setShowPass(!showPass) } className='cursor-pointer'>
                         { showPass ? <Eye/> : <EyeOff/> }

@@ -95,7 +95,7 @@ const PostCard = ({ post, openPost = false }) => {
         </div>
 
         <div className="dropdown dropdown-end ">
-          <button className=""><Ellipsis width={15} /></button>
+          <button className=""><Ellipsis width={18} /></button>
           <ul className="max-w-fit relative top-0 menu dropdown-content bg-base-100 rounded-box z-[1] min-w-52 p-2 shadow">
             {
               user?._id != post.user._id && (

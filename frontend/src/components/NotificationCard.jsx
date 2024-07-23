@@ -146,7 +146,7 @@ const NotificationCard = ({ notification }) => {
             </div>
 
             <div className="dropdown dropdown-end ">
-                <button className=""><Ellipsis width={15} color='gray' /></button>
+                <button className=""><Ellipsis width={18} color='gray' /></button>
                 <ul className="relative top-0 menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
                     
                     <li>

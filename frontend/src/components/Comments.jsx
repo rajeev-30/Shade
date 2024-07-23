@@ -42,8 +42,8 @@ const Comments = ({ comment, postId }) => {
             </div>
 
             <div className="dropdown dropdown-end ">
-                <button className=""><Ellipsis width={15} /></button>
-                <ul className="relative top-0 menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                <button className=""><Ellipsis width={18} color='gray' /></button>
+                <ul className="max-w-fit relative top-0 menu dropdown-content bg-base-100 rounded-box z-[1] min-w-52 p-2 shadow">
                     {
                         user?._id != comment.user._id && (
                             user?.following?.includes(comment.user._id)
@@ -57,7 +57,7 @@ const Comments = ({ comment, postId }) => {
                                             </div>
                                             :
                                             <div className='flex gap-2 items-center font-semibold'>
-                                                <UserRoundX width={16} /> Unfollow {comment.user.username}
+                                                <UserRoundX width={16} /> Unfollow&nbsp;{comment.user.username}
                                             </div>
                                         }
                                     </button>
@@ -75,7 +75,7 @@ const Comments = ({ comment, postId }) => {
                                                 </div>
                                                 :
                                                 <div className='flex gap-2 items-center font-semibold'>
-                                                    <UserRoundPlus width={16} /> Follow {comment.user.username}
+                                                    <UserRoundPlus width={16} /> Follow&nbsp;{comment.user.username}
                                                 </div>
                                             }
                                         </button>

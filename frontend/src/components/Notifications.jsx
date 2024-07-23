@@ -1,4 +1,4 @@
-import { ArrowLeft, Ellipsis, Trash2 } from 'lucide-react'
+import { ArrowLeft, Ellipsis, Settings, Trash2 } from 'lucide-react'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useGetNotifications from '../hooks/useGetNotifications'
@@ -41,7 +41,7 @@ const Notifications = () => {
           </div>
 
           <div className="dropdown dropdown-end ">
-                <button className=""><Ellipsis width={15} color='gray' /></button>
+                <button className=""><Settings width={25} /></button>
                 <ul className="w-fit relative top-0 menu dropdown-content bg-base-100 rounded-box z-[1] p-2 shadow">
                     
                     <li>

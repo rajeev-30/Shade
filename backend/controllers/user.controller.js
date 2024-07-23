@@ -281,6 +281,13 @@ export const updateProfile = async(req, res) => {
         const loggedInUser = await User.findById(loggedInUserId);
         const user = await User.findOne({username});
 
+        if(!username) {
+            return res.status(400).json({
+                message: "Username is required",
+                success: false,
+            })
+        }
+        
         if(user && user.username === username && !(user._id.equals(loggedInUser._id))) {
             return res.status(400).json({
                 message: "Username already exists",

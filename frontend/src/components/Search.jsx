@@ -10,7 +10,7 @@ const Search = () => {
             <button onClick={()=>navigate(-1)}>
                 <ArrowLeft/>
             </button>
-            <h1 className='text-2xl font-semibold'>Profile</h1>
+            <h1 className='text-2xl font-semibold'>Search</h1>
         </div>
     </div>
   )

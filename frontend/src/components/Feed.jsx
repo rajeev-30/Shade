@@ -6,6 +6,7 @@ import PostCard from './PostCard'
 import useGetFollowingPosts from '../hooks/useGetFollowingsPosts'
 import useCreatePost from '../hooks/useCreatePost'
 import PostShimmer from './Shimmer'
+import { FaUserAlt } from "react-icons/fa";
 
 const Feed = () => {
     const {user} = useSelector(store=>store.user)
@@ -64,7 +65,11 @@ const Feed = () => {
             <h1 className='text-2xl font-semibold p-4 border-b border-gray-800'>Home</h1>
             <div className='flex gap-4'>
                 <div className='pl-4 pt-4'>
-                    <img src={`${user?.avatar}`} alt="" className='w-10'/>
+                    {
+                        user
+                            ? <img src={`${user?.avatar}`} alt="" className='w-10'/>
+                            : <FaUserAlt size={28} className='pt-1'/>
+                    }
                 </div>
 
                 <textarea

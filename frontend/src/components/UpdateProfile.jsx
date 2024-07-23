@@ -40,7 +40,7 @@ const UpdateProfile = ({onClose}) => {
         }
     }
   return (
-    <div ref={modalRef} onClick={closeModal} className='z-10 fixed h-screen w-full flex items-center justify-center bg-black bg-opacity-30 backdrop-blur-sm'>
+    <div ref={modalRef} onClick={closeModal} className='z-10 fixed h-screen w-full flex items-center justify-center bg-[#0F172A] bg-opacity-30 backdrop-blur-sm'>
         <div className='w-[42%] h-[88%] p-6 border border-[#d75f41] rounded-xl bg-[#0F172A] overflow-scroll'>
 
             <div className='flex justify-between'>
@@ -75,9 +75,11 @@ const UpdateProfile = ({onClose}) => {
                 <div className='text-xs font-semibold text-gray-400'>Username</div>
                 <input 
                     type="text" 
+                    required={true}
                     value={username}
                     onChange={(e)=>setUsername(e.target.value)}
-                    className='w-full bg-inherit bg-opacity-0 border-b border-gray-800 py-4 outline-none'
+                    className='w-full bg-inherit bg-opacity-0 border-b border-gray-800 py-4 outline-none placeholder:opacity-20'
+                    placeholder='Anonymous username'
                 />
             </div>
             
@@ -87,7 +89,8 @@ const UpdateProfile = ({onClose}) => {
                     type="text" 
                     value={profession}
                     onChange={(e)=>setProfession(e.target.value)}
-                    className='w-full bg-inherit bg-opacity-0 border-b border-gray-800 py-4 outline-none'
+                    className='w-full bg-inherit bg-opacity-0 border-b border-gray-800 py-4 outline-none placeholder:opacity-20'
+                    placeholder='Eg: Engineer, Founder, Student...'
                 />
             </div>
 
@@ -97,7 +100,8 @@ const UpdateProfile = ({onClose}) => {
                     type="text" 
                     value={bio}
                     onChange={(e)=>setBio(e.target.value)}
-                    className='w-full bg-inherit bg-opacity-0 border-b border-gray-800 py-4 outline-none'
+                    className='w-full bg-inherit bg-opacity-0 border-b border-gray-800 py-4 outline-none placeholder:opacity-20'
+                    placeholder='Something about yourself'
                 />
             </div>
 
@@ -108,7 +112,8 @@ const UpdateProfile = ({onClose}) => {
                         type={`${showPass?"text":"password"}`} 
                         value={password}
                         onChange={(e)=>setPassword(e.target.value)}
-                        className='w-full bg-inherit bg-opacity-0  py-4 outline-none'
+                        className='w-full bg-inherit bg-opacity-0  py-4 outline-none placeholder:opacity-20'
+                        placeholder='Choose a new password'
                     />
                     <div  onClick={ () => setShowPass(!showPass) } className='cursor-pointer'>
                             { showPass ? <Eye/> : <EyeOff/> }
