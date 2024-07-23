@@ -7,6 +7,20 @@ import { getRefresh, getUnFollowed, getUser, setSigninModal } from '../redux/use
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { USER_API_END_POINT } from '../utils/Constant';
+//  React icons 
+import { IoHomeSharp } from "react-icons/io5";
+import { IoHomeOutline } from "react-icons/io5";
+import { RiSearchLine } from "react-icons/ri";
+import { RiSearchFill } from "react-icons/ri";
+import { IoMdNotificationsOutline } from "react-icons/io";
+import { IoMdNotifications } from "react-icons/io";
+import { FaRegUser } from "react-icons/fa6";
+import { FaUser } from "react-icons/fa6";
+import { RiLogoutCircleRLine } from "react-icons/ri";
+import { RiLoginCircleLine } from "react-icons/ri";
+import { SiAboutdotme } from "react-icons/si";
+
+
 
 const LeftSidebar = () => {
     const {user, signinModal} = useSelector(store=>store.user)
@@ -22,11 +36,11 @@ const LeftSidebar = () => {
 
             // dispatch(getUnFollowed(null));
             dispatch(getRefresh())
-            toast.success(res?.data?.message)
+            // toast.success(res?.data?.message)
             navigate('/');
         } catch (error) {
             console.log("Logout Errorr: "+error);
-            toast.error(error?.response?.data?.message);
+            // toast.error(error?.response?.data?.message);
 
             if(error?.response?.data?.isLoginRequired){
                 dispatch(setSigninModal(true));
@@ -42,42 +56,77 @@ const LeftSidebar = () => {
                         to={"/"}
                         className={`w-fit flex gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-400 hover:bg-opacity-10`}
                     >
-                        <Home size={25} /> <p className="text-xl font-medium">Home</p>
+                        {({ isActive }) => (
+                            <>
+                                {isActive ? <IoHomeSharp size={23} /> : <IoHomeOutline size={23} />} 
+                                <p className={`text-xl font-medium ${isActive ? 'font-semibold' : ''}`}>Home</p>
+                            </>
+                        )}
                     </NavLink>
 
                     <NavLink
                         to={"/search"}
                         className={`w-fit flex gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-400 hover:bg-opacity-10 `}
                     >
-                        <Search size={25} /> <p className="text-xl font-medium">Search</p>
+                        {({ isActive }) => (
+                            <>
+                                {isActive ? <RiSearchFill size={24} /> : <RiSearchLine size={24} />} 
+                                <p className={`text-xl font-medium ${isActive ? 'font-semibold' : ''}`}>Search</p>
+                            </>
+                        )}
                     </NavLink>
                     <NavLink
                         to={"/notifications"}
                         className={`w-fit flex gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-400 hover:bg-opacity-10 `}
                     >
-                        <Bell size={25} /> <p className="text-xl font-medium">Notifications</p>
+                        {({ isActive }) => (
+                            <>
+                                {isActive ? <IoMdNotifications size={25} /> : <IoMdNotificationsOutline size={25} />} 
+                                <p className={`text-xl font-medium ${isActive ? 'font-semibold' : ''}`}>Notifications</p>
+                            </>
+                        )}
                     </NavLink>
 
                     <NavLink to={`/profile/${user?._id}`}
                         className={`w-fit flex gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-400 hover:bg-opacity-10 `}
                     >
-                        <User size={25} /> <p className="text-xl font-medium">Profile</p>
+                        {({ isActive }) => (
+                            <>
+                                {isActive ? <FaUser size={20} /> : <FaRegUser size={20} />} 
+                                <p className={`text-xl font-medium ${isActive ? 'font-semibold' : ''}`}>Profile</p>
+                            </>
+                        )}
                     </NavLink>
 
                     <button
                         onClick={LogoutHandler}
                         className={`w-fit flex gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-400 hover:bg-opacity-10 `}
                     >
-                        {/* <Settings size={25} />  */}
-                        <LogOut size={25}/>
-                        <p className="text-xl font-medium">Logout</p>
+                        {
+                            user
+                                ?<div className='flex gap-5'> 
+                                    <RiLogoutCircleRLine size={25}/>
+                                    <p className="text-xl font-medium">Logout</p>
+                                </div>
+                                :<div className='flex gap-5'>
+                                    <RiLoginCircleLine size={25}/>
+                                    <p className="text-xl font-medium">Login</p>
+                                </div>
+                        }
+                        
                     </button>
 
                     <NavLink
                         to={"/about"}
                         className={`w-fit flex gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-400 hover:bg-opacity-10 `}
                     >
-                        <Store size={25} /> <p className="text-xl font-medium">About Us</p>
+                        {/* {({ isActive }) => (
+                            <>
+                                {isActive ? <IoHomeSharp size={25} /> : <IoHomeOutline size={25} />} 
+                                <p className={`text-xl font-medium ${isActive ? 'font-semibold' : ''}`}>Home</p>
+                            </>
+                        )} */}
+                        <SiAboutdotme size={25}/> <p className={`text-xl font-medium `}>About me</p>
                     </NavLink>
                     {
                         user && (

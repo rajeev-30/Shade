@@ -127,7 +127,7 @@ const NotificationCard = ({ notification }) => {
                             <div className='w-[90%] min-h-14 flex items-center gap-1' >
                                 <div className='font-semibold flex items-center gap-2 cursor-pointer'>
                                     <div onClick={() => navigate(`/profile/${notification.from._id}`)} >
-                                        < SlUserFollowing size={30} />
+                                        < SlUserFollowing size={30} style={{ color: 'red',}}/>
                                     </div>
                                     <div onClick={() => navigate(`/profile/${notification.from._id}`)} className='text-sm font-semibold'>
                                         {notification.from.username}

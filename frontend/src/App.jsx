@@ -7,7 +7,10 @@ function App() {
   return (
     <div className='w-full'>
       <Body/>
-      <Toaster/>
+      <Toaster
+        position="bottom-center"
+        reverseOrder={false}
+      />
     </div>
   )
 }

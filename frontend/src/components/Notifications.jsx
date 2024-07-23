@@ -8,6 +8,7 @@ import axios from 'axios'
 import { NOTIFICATION_API_END_POINT } from '../utils/Constant'
 import { getRefresh } from '../redux/NotificationSlice'
 import toast from 'react-hot-toast'
+import Shimmer from './Shimmer'
 
 const Notifications = () => {
   const navigate  = useNavigate()
@@ -66,7 +67,9 @@ const Notifications = () => {
             </div>
         </div>
         {
-          notifications?.map((notification) => <div key={notification._id}> <NotificationCard notification={notification}/> </div>)
+          notifications
+            ?notifications?.map((notification) => <div key={notification._id}> <NotificationCard notification={notification}/> </div>)
+            : <Shimmer/>
         }
     </div>
   )
