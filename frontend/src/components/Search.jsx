@@ -109,14 +109,14 @@ const Search = () => {
       {
         searchText && toggleSearch && (
           searchedPosts.length===0
-            ? <div className='p-4 font-semibold'> No Posts Found </div>
+            ? <div className='p-4 font-semibold'> No Posts Found! </div>
             : searchedPosts?.map(post => <div key={post._id}> <PostCard post={post}/> </div>)
         )
       }
       {
         searchText && !toggleSearch && (
           searchedUsers.length===0
-          ? <div className='p-4 font-semibold'> No Users Found </div>
+          ? <div className='p-4 font-semibold'> No Profile Found! </div>
           : searchedUsers.map(user => <div key={user._id}> <SearchUserCard user={user}/> </div>)
         )
       }

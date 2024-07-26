@@ -68,7 +68,9 @@ const Notifications = () => {
         </div>
         {
           notifications
-            ?notifications?.map((notification) => <div key={notification._id}> <NotificationCard notification={notification}/> </div>)
+            ? notifications.length===0 
+                ? <div className='p-4 font-semibold'> No Notification Found! </div>
+                : notifications?.map((notification) => <div key={notification._id}> <NotificationCard notification={notification}/> </div>)
             : <Shimmer/>
         }
     </div>

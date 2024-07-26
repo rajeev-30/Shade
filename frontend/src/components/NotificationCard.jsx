@@ -135,7 +135,7 @@ const NotificationCard = ({ notification }) => {
                                 </div>
 
                                 <div
-                                    onClick={() => navigate(`/post/${notification.post?._id}`)}
+                                    onClick={() => navigate(`/profile/${notification.from._id}`)}
                                     className='flex items-center text-gray-400 text-sm cursor-pointer'>started&nbsp;following&nbsp;you
                                 </div>
 
