@@ -28,7 +28,7 @@ const RightSidebar = () => {
 
     useEffect(()=>{
         setSearchUsers(allUsers?.filter(currUser=>{
-            if(currUser.username.includes(searchText)){
+            if(currUser.username.toLowerCase().includes(searchText.toLowerCase())){
                 return currUser
             }
         }))
@@ -56,14 +56,14 @@ const RightSidebar = () => {
   return (
     <div ref={searchRef} onClick={hideSearchBorder} className='w-[27%] min-h-screen max-h-full border-l border-gray-800 pl-4  pr-12  focus:bg-red-400'>
         <div className=' sticky top-0 py-4'>
-            <div onClick={showSearchBorder} className={`w-full flex gap-2 bg-gray-800 bg-opacity-50 px-4 py-3 rounded-full ${searchBorder? "border border-[#d75f41]":"border border-gray-800 border-opacity-50"}`}>
+            <div onClick={showSearchBorder} className={`w-full flex gap-2 bg-gray-800 bg-opacity-50 px-4  rounded-full ${searchBorder? "border border-[#d75f41]":"border border-gray-800 border-opacity-50"}`}>
                 <div className='flex items-center'>
                     <Search size={16}/>
                 </div>
                 <input 
                     value={searchText}
                     onChange={(e)=>setSearchText(e.target.value)}
-                    className='w-full bg-gray-800 bg-opacity-0 outline-none ' 
+                    className='w-full bg-gray-800 bg-opacity-0 py-3 outline-none ' 
                     type="text" 
                     placeholder='Search users'/>
             </div>

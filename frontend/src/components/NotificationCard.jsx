@@ -175,21 +175,3 @@ const NotificationCard = ({ notification }) => {
 }
 
 export default NotificationCard
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
