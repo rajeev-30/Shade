@@ -8,6 +8,7 @@ import useFollowAndUnFollow from '../hooks/useFollowAndUnFollow';
 import toast from 'react-hot-toast';
 import { setSigninModal } from '../redux/userSlice';
 import { Link } from 'react-router-dom';
+import useFormatDate from '../hooks/useFormatDate';
 
 const PostCard = ({ post, openPost = false }) => {
   const { user } = useSelector(store => store.user);
@@ -15,6 +16,7 @@ const PostCard = ({ post, openPost = false }) => {
   const [isLoadingDeletePost, setIsLoadingDeletePost] = useState(false)
 
   const [followAndUnFollow, isLoading] = useFollowAndUnFollow();
+  const createdAt = useFormatDate(post.createdAt);
 
   const likeUnLikeHandler = async (id) => {
     try {
@@ -89,9 +91,14 @@ const PostCard = ({ post, openPost = false }) => {
         <div className='flex gap-2 items-center pb-4'>
           <Link to={`/profile/${post.user._id}`}> <img src={`${post.user.avatar}`} width={35} /> </Link>
           <Link to={`/profile/${post.user._id}`}>
-            <p className='text-md font-semibold'>{post.user.username}</p>
+            <div className='flex items-center'>
+              <p className='text-md font-semibold'>{post.user.username}</p>
+              <span className="text-gray-400 mx-1 text-sm font-bold">•</span>
+              <p className='text-xs text-gray-400'>{createdAt}</p>
+            </div>
             <p className='text-xs text-gray-400'>{post.user.profession}</p>
           </Link>
+          
         </div>
 
         <div className="dropdown dropdown-end ">

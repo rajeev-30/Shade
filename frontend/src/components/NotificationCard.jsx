@@ -10,6 +10,7 @@ import { NOTIFICATION_API_END_POINT } from '../utils/Constant';
 import { useDispatch } from 'react-redux';
 import { getRefresh } from '../redux/NotificationSlice';
 import toast from 'react-hot-toast';
+import useFormatDate from '../hooks/useFormatDate';
 
 const NotificationCard = ({ notification }) => {
     const navigate = useNavigate();
@@ -31,7 +32,7 @@ const NotificationCard = ({ notification }) => {
         }
     }
 
-    
+    const createdAt = useFormatDate(notification.createdAt)
 
     return (
         <div className='w-full flex justify-between px-4 hover:bg-gray-400 border-b border-gray-800 hover:bg-opacity-10'>
@@ -39,20 +40,24 @@ const NotificationCard = ({ notification }) => {
             <div className='w-[95%]'>
                 {
                     notification.type === 'like' && (
-                        <div className='w-full  flex justify-between items-center py-2'>
-                            <div className='w-[90%] min-h-14 flex items-center gap-1' >
-                                <div className='font-semibold flex items-center gap-2 cursor-pointer'>
+                        <div className='w-full  flex justify-between py-2'>
+                            <div className='w-[90%] min-h-14 flex  gap-1' >
+                                <div className='font-semibold flex  gap-2 cursor-pointer'>
                                     <div onClick={() => navigate(`/post/${notification.post?._id}`)} >
                                         < FcLike size={30} />
                                     </div>
-                                    <div onClick={() => navigate(`/profile/${notification.from._id}`)} className='text-sm font-semibold'>
-                                        {notification.from.username}
+
+                                    <div className='flex flex-col gap-2'>
+                                        <div onClick={() => navigate(`/profile/${notification.from._id}`)} className='text-sm font-semibold'>
+                                            {notification.from.username}
+                                        </div>
+                                        <p className='text-xs text-gray-400'>{createdAt}</p>
                                     </div>
                                 </div>
 
                                 <div
                                     onClick={() => navigate(`/post/${notification.post?._id}`)}
-                                    className='flex items-center text-gray-400 text-sm cursor-pointer'>liked&nbsp;your&nbsp;post.
+                                    className='flex text-gray-400 text-sm cursor-pointer'>liked&nbsp;your&nbsp;post.
                                 </div>
 
                                 {
@@ -69,7 +74,7 @@ const NotificationCard = ({ notification }) => {
                                     <img
                                         onClick={() => navigate(`/post/${notification.post._id}`)}
                                         src={notification?.post?.img}
-                                        className='cursor-pointer h-12 w-12 object-cover rounded-md'
+                                        className='cursor-pointer mt-1 h-12 w-12 object-cover rounded-md'
                                     />
                                 )
                             }
@@ -81,20 +86,24 @@ const NotificationCard = ({ notification }) => {
                 {/* Comment Notification */}
                 {
                     notification.type === 'comment' && (
-                        <div className='flex justify-between items-center py-2'>
-                            <div className='w-[90%] min-h-14 flex items-center gap-1' >
-                                <div className='font-semibold flex items-center gap-2 cursor-pointer'>
+                        <div className='flex justify-between  py-2'>
+                            <div className='w-[90%] min-h-14 flex  gap-1' >
+                                <div className='font-semibold flex  gap-2 cursor-pointer'>
                                     <div onClick={() => navigate(`/post/${notification.post?._id}`)} >
                                         < FaCommentDots size={30} />
                                     </div>
-                                    <div onClick={() => navigate(`/profile/${notification.from._id}`)} className='text-sm font-semibold'>
-                                        {notification.from.username}
+
+                                    <div className='flex flex-col gap-2'>
+                                        <div onClick={() => navigate(`/profile/${notification.from._id}`)} className='text-sm font-semibold'>
+                                            {notification.from.username}
+                                        </div>
+                                        <p className='text-xs text-gray-400'>{createdAt}</p>
                                     </div>
                                 </div>
 
                                 <div
                                     onClick={() => navigate(`/post/${notification.post?._id}`)}
-                                    className='flex items-center text-gray-400 text-sm cursor-pointer'>commented&nbsp;on&nbsp;your&nbsp;post.
+                                    className='flex  text-gray-400 text-sm cursor-pointer'>commented&nbsp;on&nbsp;your&nbsp;post.
                                 </div>
 
                                 <div
@@ -111,7 +120,7 @@ const NotificationCard = ({ notification }) => {
                                     <img
                                         onClick={() => navigate(`/post/${notification._id}`)}
                                         src={notification?.post?.img}
-                                        className='cursor-pointer h-12 w-12 object-cover rounded-md'
+                                        className='cursor-pointer mt-1 h-12 w-12 object-cover rounded-md'
                                     />
                                 )
                             }
@@ -123,20 +132,24 @@ const NotificationCard = ({ notification }) => {
                 {/* Follow Notification */}
                 {
                     notification.type === 'follow' && (
-                        <div className='flex justify-between items-center py-2'>
-                            <div className='w-[90%] min-h-14 flex items-center gap-1' >
-                                <div className='font-semibold flex items-center gap-2 cursor-pointer'>
+                        <div className='flex justify-between  py-2'>
+                            <div className='w-[90%] min-h-14 flex  gap-1' >
+                                <div className='font-semibold flex  gap-2 cursor-pointer'>
                                     <div onClick={() => navigate(`/profile/${notification.from._id}`)} >
                                         < SlUserFollowing size={30} style={{ color: 'red',}}/>
                                     </div>
-                                    <div onClick={() => navigate(`/profile/${notification.from._id}`)} className='text-sm font-semibold'>
-                                        {notification.from.username}
+
+                                    <div className='flex flex-col gap-2'>
+                                        <div onClick={() => navigate(`/profile/${notification.from._id}`)} className='text-sm font-semibold'>
+                                            {notification.from.username}
+                                        </div>
+                                        <p className='text-xs text-gray-400'>{createdAt}</p>
                                     </div>
                                 </div>
 
                                 <div
                                     onClick={() => navigate(`/profile/${notification.from._id}`)}
-                                    className='flex items-center text-gray-400 text-sm cursor-pointer'>started&nbsp;following&nbsp;you
+                                    className='flex  text-gray-400 text-sm cursor-pointer'>started&nbsp;following&nbsp;you
                                 </div>
 
                             </div>
@@ -145,7 +158,7 @@ const NotificationCard = ({ notification }) => {
 
             </div>
 
-            <div className="dropdown dropdown-end ">
+            <div className="dropdown dropdown-end mt-1">
                 <button className=""><Ellipsis width={18} color='gray' /></button>
                 <ul className="relative top-0 menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
                     

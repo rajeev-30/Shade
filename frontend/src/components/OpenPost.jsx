@@ -102,7 +102,7 @@ const OpenPost = () => {
         
         <div className='px-4 border-y pb-4 py-4 border-gray-800'>
             <div className='flex gap-2 items-start'>
-                <img src={post?.user?.avatar} width={35} />
+                <img src={user?.avatar} width={35} />
                 <textarea
                     value={text}
                     onChange={handleTextChange}
