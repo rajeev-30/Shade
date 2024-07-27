@@ -1,11 +1,11 @@
 import { Image, X } from 'lucide-react'
 import React, { useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
-import useGetposts from '../hooks/useGetposts'
-import PostCard from './PostCard'
-import useGetFollowingPosts from '../hooks/useGetFollowingsPosts'
-import useCreatePost from '../hooks/useCreatePost'
-import PostShimmer from './Shimmer'
+import useGetposts from '../../hooks/useGetposts'
+import PostCard from '../Cards/PostCard'
+import useGetFollowingPosts from '../../hooks/useGetFollowingsPosts'
+import useCreatePost from '../../hooks/useCreatePost'
+import PostShimmer from '../Common/Shimmer'
 import { FaUserAlt } from "react-icons/fa";
 
 const Feed = () => {

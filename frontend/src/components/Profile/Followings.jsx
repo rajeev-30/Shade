@@ -1,13 +1,13 @@
 import { ArrowLeft } from 'lucide-react'
-import AllusersCard from './AllusersCard'
+import AllusersCard from '../Cards/UserCard'
 import { Link, useParams } from 'react-router-dom'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
-import { USER_API_END_POINT } from '../utils/Constant';
-import UserShimmer from './Shimmer';
+import { USER_API_END_POINT } from '../../utils/Constant';
+import UserShimmer from '../Common/Shimmer';
 import { useDispatch, useSelector } from 'react-redux';
-import { getFollowings } from '../redux/userSlice';
+import { getFollowings } from '../../redux/userSlice';
 
 const Followings = () => {
     const params = useParams()

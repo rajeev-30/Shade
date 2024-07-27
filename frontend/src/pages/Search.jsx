@@ -4,12 +4,11 @@ import { useNavigate } from 'react-router-dom'
 
 import { FiSearch } from "react-icons/fi";
 import { useSelector } from 'react-redux';
-import PostCard from './PostCard';
+import PostCard from '../components/Cards/PostCard';
 import useGetposts from '../hooks/useGetposts';
-import Shimmer from './Shimmer';
-import AllusersCard from './AllusersCard';
+import Shimmer from '../components/Common/Shimmer';
 import useGetuser from '../hooks/useGetuser';
-import SearchUserCard from './SearchUserCard';
+import SearchUserCard from '../components/Cards/SearchUserCard';
 
 const Search = () => {
   const {posts} = useSelector(store=>store.post);
@@ -24,7 +23,7 @@ const Search = () => {
 
   const hideSearchBorder = (e) =>{
     if(searchRef.current===e.target){
-      setSearchBorder(false);
+        setSearchBorder(false)
     }
   }
 
@@ -55,11 +54,12 @@ const Search = () => {
       </div>
 
       <div className='p-4 border-b border-gray-800'>
-        <div onClick={showSearchBorder}  className={`w-full flex gap-2 bg-gray-800 bg-opacity-50 px-4 rounded-full ${searchBorder? "border border-[#d75f41]":"border border-gray-800 border-opacity-50"}`}>
+        <div   className={`w-full flex gap-2 bg-gray-800 bg-opacity-50 px-4 rounded-full ${searchBorder? "border border-[#d75f41]":"border border-gray-800 border-opacity-50"}`}>
                 <div className='flex items-center'>
                     <FiSearch size={16}/>
                 </div>
-                <input 
+                <input
+                onClick={showSearchBorder} 
                     value={searchText}
                     onChange={(e)=>setSearchText(e.target.value)}
                     className='w-full py-3 bg-gray-800 bg-opacity-0 outline-none ' 

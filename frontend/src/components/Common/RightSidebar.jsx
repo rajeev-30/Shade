@@ -1,11 +1,11 @@
 import { Search } from 'lucide-react'
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import AllusersCard from './AllusersCard'
+import UserCard from '../Cards/UserCard'
 import UserShimmer from './Shimmer'
 import axios from 'axios'
-import { USER_API_END_POINT } from '../utils/Constant'
-import { getUnFollowed } from '../redux/userSlice'
+import { USER_API_END_POINT } from '../../utils/Constant'
+import { getUnFollowed } from '../../redux/userSlice'
 
 const RightSidebar = () => {
     const [searchBorder, setSearchBorder] = useState(false)
@@ -74,7 +74,7 @@ const RightSidebar = () => {
                         <div className='h-80'>
                             {
                                 allUsers
-                                ? allUsers?.map(currUser => currUser?._id === user?._id?(""):(<div key={currUser?._id}> <AllusersCard singleUser={currUser}/> </div> ))
+                                ? allUsers?.map(currUser => currUser?._id === user?._id?(""):(<div key={currUser?._id}> <UserCard singleUser={currUser}/> </div> ))
                                 : <UserShimmer/>
                             }
                         </div>
@@ -82,11 +82,11 @@ const RightSidebar = () => {
                 }
                 {
                     !searchText && user &&(
-                        // allUsers?.map(currUser => currUser?._id === user?._id?(""):(<div key={currUser?._id}> <AllusersCard singleUser={currUser}/> </div> ))
+                        // allUsers?.map(currUser => currUser?._id === user?._id?(""):(<div key={currUser?._id}> <UserCard singleUser={currUser}/> </div> ))
                         <>
                             <div className='px-4 pb-4 font-bold text-lg'>Users you can follow</div>
                             { unFollowed 
-                                ? unFollowed?.map(currUser => <div key={currUser?._id}> <AllusersCard singleUser={currUser}/> </div> )
+                                ? unFollowed?.map(currUser => <div key={currUser?._id}> <UserCard singleUser={currUser}/> </div> )
                                 : <UserShimmer/> }
                         </>
                     ) 
@@ -96,7 +96,7 @@ const RightSidebar = () => {
                     !user &&  !searchText &&(
                         !allUsers
                         ? <UserShimmer/>
-                        : allUsers?.map(currUser => currUser?._id === user?._id?(""):(<div key={currUser?._id}> <AllusersCard singleUser={currUser}/> </div> ))
+                        : allUsers?.map(currUser => currUser?._id === user?._id?(""):(<div key={currUser?._id}> <UserCard singleUser={currUser}/> </div> ))
                     )
                 } */}
                 {
@@ -108,7 +108,7 @@ const RightSidebar = () => {
                 }
                 {
                     searchText && searchedUsers?.length>0 && (
-                        searchedUsers?.map(user=><div key={user?._id} ><AllusersCard singleUser={user}/></div> )
+                        searchedUsers?.map(user=><div key={user?._id} ><UserCard singleUser={user}/></div> )
                     )
                 }
                     {/* Shimmer Effect */}

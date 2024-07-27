@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Body from './components/Body'
+import Body from './components/Routes/Body'
 import { Toaster } from 'react-hot-toast'
 
 function App() {

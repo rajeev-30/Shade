@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useGetprofile from "../hooks/useGetprofile";
-import UpdateProfile from "./UpdateProfile";
+import UpdateProfile from "../components/Profile/UpdateProfile";
 import useFollowAndUnFollow from "../hooks/useFollowAndUnFollow";
 import useGetLikedPosts from "../hooks/useGetLikedPosts";
-import PostCard from "./PostCard";
+import PostCard from "../components/Cards/PostCard";
 import useGetSavedPosts from "../hooks/useGetSavedPosts";
 import useGetUserPosts from "../hooks/useGetUserPosts";
-import PostShimmer from "./Shimmer";
+import PostShimmer from "../components/Common/Shimmer";
 import useGetMediaPosts from "../hooks/useGetMediaPosts";
 import { ArrowLeft } from "lucide-react";
 

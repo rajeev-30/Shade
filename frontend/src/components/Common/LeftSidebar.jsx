@@ -1,12 +1,12 @@
 import { Home, Search, User, Store, LogOut, Bell } from 'lucide-react'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import Signin from './SignIn';
+import Signin from '../Auth/SignIn';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { getRefresh, getUnFollowed, getUser, setSigninModal } from '../redux/userSlice';
+import { getRefresh, getUnFollowed, getUser, setSigninModal } from '../../redux/userSlice';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { USER_API_END_POINT } from '../utils/Constant';
+import { USER_API_END_POINT } from '../../utils/Constant';
 //  React icons 
 import { IoHomeSharp } from "react-icons/io5";
 import { IoHomeOutline } from "react-icons/io5";

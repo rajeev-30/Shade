@@ -6,11 +6,11 @@ import { FaCommentDots } from "react-icons/fa";
 import { RiUserFollowFill } from "react-icons/ri";
 import { SlUserFollowing } from "react-icons/sl";
 import axios from 'axios';
-import { NOTIFICATION_API_END_POINT } from '../utils/Constant';
+import { NOTIFICATION_API_END_POINT } from '../../utils/Constant';
 import { useDispatch } from 'react-redux';
-import { getRefresh } from '../redux/NotificationSlice';
+import { getRefresh } from '../../redux/NotificationSlice';
 import toast from 'react-hot-toast';
-import useFormatDate from '../hooks/useFormatDate';
+import useFormatDate from '../../hooks/useFormatDate';
 
 const NotificationCard = ({ notification }) => {
     const navigate = useNavigate();

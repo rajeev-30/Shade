@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react'
 import {Eye, EyeOff, GraduationCap, LockKeyhole, NotebookText, SquareUser, X} from 'lucide-react'
 import axios from 'axios';
-import { USER_API_END_POINT } from '../utils/Constant';
+import { USER_API_END_POINT } from '../../utils/Constant';
 import { useDispatch } from 'react-redux';
-import { getRefresh, getUser, setSigninModal } from '../redux/userSlice';
+import { getRefresh, getUser, setSigninModal } from '../../redux/userSlice';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 

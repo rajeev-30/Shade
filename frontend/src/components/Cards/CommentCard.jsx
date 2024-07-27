@@ -1,14 +1,14 @@
 import { Ellipsis, EllipsisVertical, Trash2, UserRoundMinus, UserRoundPlus, UserRoundX } from 'lucide-react'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import useFollowAndUnFollow from '../hooks/useFollowAndUnFollow'
+import useFollowAndUnFollow from '../../hooks/useFollowAndUnFollow'
 import axios from 'axios'
-import { POST_API_END_POINT } from '../utils/Constant'
+import { POST_API_END_POINT } from '../../utils/Constant'
 import toast from 'react-hot-toast'
-import { getRefresh } from '../redux/postSlice'
+import { getRefresh } from '../../redux/postSlice'
 
 
-const Comments = ({ comment, postId }) => {
+const CommentCard = ({ comment, postId }) => {
     const {user} = useSelector(store=>store.user)
     const [isLoadingDeleteComment, setIsLoadingDeleteComment] = useState(false)
     const dispatch = useDispatch()
@@ -111,4 +111,4 @@ const Comments = ({ comment, postId }) => {
     )
 }
 
-export default Comments
+export default CommentCard

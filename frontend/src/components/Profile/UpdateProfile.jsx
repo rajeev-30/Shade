@@ -1,9 +1,9 @@
 import { CircleAlert, Eye, EyeOff, X } from 'lucide-react'
 import React, { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { USER_API_END_POINT } from '../utils/Constant';
+import { USER_API_END_POINT } from '../../utils/Constant';
 import axios from 'axios';
-import { getRefresh } from '../redux/userSlice';
+import { getRefresh } from '../../redux/userSlice';
 import toast from 'react-hot-toast';
 
 const UpdateProfile = ({onClose}) => {

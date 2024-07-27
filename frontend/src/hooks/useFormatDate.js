@@ -9,9 +9,9 @@ const useFormatDate = (dateString) => {
     const diffInHours = Math.floor(diffInMinutes / 60);
     const diffInDays = Math.floor(diffInHours / 24);
 
-    console.log('Date:', date);
-    console.log('Now:', now);
-    console.log('Difference (seconds):', diffInSeconds);
+    // console.log('Date:', date);
+    // console.log('Now:', now);
+    // console.log('Difference (seconds):', diffInSeconds);
 
     // Less than 1 minute
     if (diffInSeconds < 60) {

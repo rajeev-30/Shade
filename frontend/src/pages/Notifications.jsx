@@ -2,13 +2,13 @@ import { ArrowLeft, Ellipsis, Settings, Trash2 } from 'lucide-react'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useGetNotifications from '../hooks/useGetNotifications'
-import NotificationCard from './NotificationCard'
+import NotificationCard from '../components/Cards/NotificationCard'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { NOTIFICATION_API_END_POINT } from '../utils/Constant'
 import { getRefresh } from '../redux/NotificationSlice'
 import toast from 'react-hot-toast'
-import Shimmer from './Shimmer'
+import Shimmer from '../components/Common/Shimmer'
 
 const Notifications = () => {
   const navigate  = useNavigate()

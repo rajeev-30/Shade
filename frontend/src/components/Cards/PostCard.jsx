@@ -2,13 +2,13 @@ import axios from 'axios';
 import { Bookmark, Ellipsis, EllipsisVertical, Heart, MessageCircle, Trash2, UserRoundMinus, UserRoundPlus, UserRoundX } from 'lucide-react'
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { POST_API_END_POINT } from '../utils/Constant';
-import { getRefresh } from '../redux/postSlice';
-import useFollowAndUnFollow from '../hooks/useFollowAndUnFollow';
+import { POST_API_END_POINT } from '../../utils/Constant';
+import { getRefresh } from '../../redux/postSlice';
+import useFollowAndUnFollow from '../../hooks/useFollowAndUnFollow';
 import toast from 'react-hot-toast';
-import { setSigninModal } from '../redux/userSlice';
+import { setSigninModal } from '../../redux/userSlice';
 import { Link } from 'react-router-dom';
-import useFormatDate from '../hooks/useFormatDate';
+import useFormatDate from '../../hooks/useFormatDate';
 
 const PostCard = ({ post, openPost = false }) => {
   const { user } = useSelector(store => store.user);

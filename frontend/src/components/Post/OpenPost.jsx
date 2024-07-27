@@ -2,14 +2,14 @@ import axios from 'axios'
 import { ArrowLeft } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { POST_API_END_POINT } from '../utils/Constant'
-import PostCard from './PostCard'
+import { POST_API_END_POINT } from '../../utils/Constant'
+import PostCard from '../Cards/PostCard'
 import { useDispatch, useSelector } from 'react-redux'
-import { getPost, getRefresh } from '../redux/postSlice'
-import { setSigninModal } from '../redux/userSlice'
-import PostShimmer from './Shimmer'
-import Comments from './Comments'
-import Shimmer from './Shimmer'
+import { getPost, getRefresh } from '../../redux/postSlice'
+import { setSigninModal } from '../../redux/userSlice'
+import PostShimmer from '../Common/Shimmer'
+import CommentCard from '../Cards/CommentCard'
+import Shimmer from '../Common/Shimmer'
 import toast from 'react-hot-toast'
 
 const OpenPost = () => {
@@ -132,7 +132,7 @@ const OpenPost = () => {
                     ? post?.comments?.slice().reverse().map(
                         comment => 
                             <div key={comment._id}> 
-                                <Comments comment={comment} postId={post?._id}/>
+                                <CommentCard comment={comment} postId={post?._id}/>
                             </div>
                         )
                     : <Shimmer/> 

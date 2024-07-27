@@ -1,13 +1,13 @@
 import React from 'react'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import Home from './Home'
-import Feed from './Feed'
-import Search  from './Search'
-import Profile from './Profile'
-import Followings from './Followings'
-import Followers from './Followers'
-import Notifications from './Notifications'
-import OpenPost from './OpenPost'
+import Home from '../../pages/Home'
+import Feed from '../Post/Feed'
+import Search  from '../../pages/Search'
+import Profile from '../../pages/Profile'
+import Followings from '../Profile/Followings'
+import Followers from '../Profile/Followers'
+import Notifications from '../../pages/Notifications'
+import OpenPost from '../Post/OpenPost'
 
 const Body = () => {
 

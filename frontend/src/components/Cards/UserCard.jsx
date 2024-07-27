@@ -1,9 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
-import useFollowAndUnFollow from '../hooks/useFollowAndUnFollow';
+import useFollowAndUnFollow from '../../hooks/useFollowAndUnFollow';
 
-const AllusersCard = ({singleUser}) => {
+const UserCard = ({singleUser}) => {
     const {user} = useSelector(store=>store.user);
 
     const [followAndUnFollow, isLoading] = useFollowAndUnFollow();
@@ -62,4 +62,4 @@ const AllusersCard = ({singleUser}) => {
   )
 }
 
-export default AllusersCard
+export default UserCard
