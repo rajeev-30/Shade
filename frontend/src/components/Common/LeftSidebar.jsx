@@ -1,5 +1,5 @@
 import { Home, Search, User, Store, LogOut, Bell } from 'lucide-react'
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Signin from '../Auth/SignIn';
 import { NavLink, useNavigate } from 'react-router-dom';
@@ -19,6 +19,7 @@ import { FaUser } from "react-icons/fa6";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { RiLoginCircleLine } from "react-icons/ri";
 import { SiAboutdotme } from "react-icons/si";
+import CreatePostModal from '../Post/CreatePostModal';
 
 
 
@@ -26,6 +27,7 @@ const LeftSidebar = () => {
     const {user, signinModal} = useSelector(store=>store.user)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const [createPostModal, setCreatepostModal] = useState(false)
 
 
     const LogoutHandler = async() =>{
@@ -130,7 +132,7 @@ const LeftSidebar = () => {
                     </NavLink>
                     {
                         user && (
-                            <button className='text-xl font-medium px-10 py-3 cursor-pointer mt-4 rounded-full border-2 border-[#d75f41] text-[#d75f41]  hover:bg-[#d75f41] hover:text-white'>Create post</button>
+                            <button onClick={()=>setCreatepostModal(true)} className='text-xl font-medium px-10 py-3 cursor-pointer mt-4 rounded-full border-2 border-[#d75f41] text-[#d75f41]  hover:bg-[#d75f41] hover:text-white'>Create post</button>
                         )
                     }
                     {
@@ -143,6 +145,11 @@ const LeftSidebar = () => {
             {
                 signinModal && (
                     <Signin onClose={()=>setSigninModal(false)} onOpen={()=>setSigninModal(true)}/>
+                )
+            }
+            {
+                createPostModal && (
+                    <CreatePostModal onClose={()=>setCreatepostModal(false)}/>
                 )
             }
         </>

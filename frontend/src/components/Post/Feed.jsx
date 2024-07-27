@@ -91,8 +91,10 @@ const Feed = () => {
                         }} 
                         className='bg-gray-700 rounded-full p-1 cursor-pointer'/>
                     </div>
-
-                    <img src={img} className='pl-16 pr-4 max-h-[600px] rounded-xl object-cover' />
+                    
+                    <div className='pl-16 pr-4'>
+                        <img src={img} className=' max-h-[600px] rounded-xl object-cover' />
+                    </div>
                 </>)
             }
 
