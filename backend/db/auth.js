@@ -9,7 +9,6 @@ const isAuthenticated = async(req, res, next) =>{
                 message:"User not authenticated.",
                 success: false,
                 isLoginRequired: true,
-                tokenn: token
             })
         }
         
