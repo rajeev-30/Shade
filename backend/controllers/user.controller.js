@@ -61,6 +61,8 @@ export const Register = async (req, res) => {
                 httpOnly: true,
                 maxAge: 30 * 24 * 60 * 60 * 1000,
                 secure: true,
+                domain: 'https://shade-backend.onrender.com',  
+                path: '/',
             })
             .json({
                 message: "User registered successfully",
@@ -116,7 +118,9 @@ export const Login = async(req, res) =>{
         .cookie('token', token, {
             httpOnly:true, 
             maxAge: 30 * 24 * 60 * 60 * 1000,
-            secure: true
+            secure: true,
+            domain: 'https://shade-backend.onrender.com',  
+            path: '/',
         })
         .json({
             message:`Welcome back ${user.username}`,
