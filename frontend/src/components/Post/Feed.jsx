@@ -126,16 +126,17 @@ const Feed = () => {
                             Home
                     </button>
                 </div>
-                <div
+                <button
+                    disabled={!user}
                     onClick={()=>setTogglePost(false)}
-                    className='w-1/2 flex justify-center cursor-pointer hover:bg-gray-200 hover:bg-opacity-5'
+                    className='w-1/2 flex justify-center hover:bg-gray-200 hover:bg-opacity-5'
                 >
                     <button 
                         disabled={!user}
                         className={`flex justify-center py-4 ${togglePost?'text-gray-400':'border-b-[3px] border-[#d75f41]'}`}>
                             Following
                     </button>
-                </div>
+                </button>
             </div>
             {
                 togglePost && (

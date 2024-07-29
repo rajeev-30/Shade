@@ -63,6 +63,7 @@ export const Register = async (req, res) => {
                 secure: true,
                 domain: 'https://shade-backend.onrender.com',  
                 path: '/',
+                sameSite: 'None'
             })
             .json({
                 message: "User registered successfully",
@@ -78,7 +79,6 @@ export const Register = async (req, res) => {
         })
     }
 }
-
 
 //Login
 export const Login = async(req, res) =>{
@@ -121,6 +121,7 @@ export const Login = async(req, res) =>{
             secure: true,
             domain: 'https://shade-backend.onrender.com',  
             path: '/',
+            sameSite: 'None'
         })
         .json({
             message:`Welcome back ${user.username}`,
@@ -131,7 +132,6 @@ export const Login = async(req, res) =>{
         console.log("Login error: " + error);
     }
 }
-
 
 //Logout
 export const Logout = async(req, res) =>{

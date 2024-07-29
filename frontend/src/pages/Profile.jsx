@@ -89,7 +89,7 @@ const Profile = () => {
 
         <div className="px-10 pt-4 flex justify-between">
           <div className="flex flex-col justify-center items-center">
-            <p>0</p>
+            <p>{userPosts?.length}</p>
             <p className="text-gray-400 text-xs">Posts</p>
           </div>
 
