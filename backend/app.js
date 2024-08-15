@@ -5,6 +5,7 @@ import userRoute from "./routes/user.route.js"
 import postRoute from "./routes/post.route.js"
 import notificationRoute from "./routes/notification.route.js"
 import cors from 'cors'
+import path from "path";
 
 dotenv.config({
     path: "./.env",
@@ -14,7 +15,7 @@ const app = express();
 const port = process.env.PORT || 4000
 
 //cors
-const allowedOrigins = ["http://localhost:5173", "https://shade-9060.onrender.com"];
+const allowedOrigins = ["http://localhost:8000", "http://localhost:5173"];
 const corsOptions = {
     origin: (origin, callback) => {
         // Allow requests with no origin (like mobile apps, curl requests)
@@ -30,7 +31,6 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.use(cors(corsOptions));
 
 //middlewares
 app.use(express.urlencoded({ extended: true }));
@@ -42,6 +42,16 @@ app.use("/api/v1/user", userRoute);
 app.use("/api/v1/post", postRoute);
 app.use("/api/v1/notification", notificationRoute);
 
+//serving frontend
+const __dirname = path.resolve();
+
+app.use(express.static(path.join(__dirname, "/frontend/dist")));
+app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+})
+
+
+//serving backend
 app.listen(port, () => {
     console.log(`server listening on port ${port}`);
 

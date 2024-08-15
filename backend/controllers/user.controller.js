@@ -61,7 +61,7 @@ export const Register = async (req, res) => {
                 httpOnly: true,
                 maxAge: 30 * 24 * 60 * 60 * 1000,
                 secure: true,
-                sameSite: 'None'
+                sameSite: 'strict'
             })
             .json({
                 message: "User registered successfully",
@@ -118,7 +118,7 @@ export const Login = async(req, res) =>{
             httpOnly:true, 
             maxAge: 30 * 24 * 60 * 60 * 1000,
             secure: true,
-            sameSite: 'None'
+            sameSite: 'strict'
         })
         .json({
             message:`Welcome back ${user.username}`,

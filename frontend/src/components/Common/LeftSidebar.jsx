@@ -119,7 +119,7 @@ const LeftSidebar = () => {
                     </button>
 
                     <NavLink
-                        to={"/about"}
+                        to={"/aboutme"}
                         className={`w-fit flex gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-400 hover:bg-opacity-10 `}
                     >
                         {/* {({ isActive }) => (
