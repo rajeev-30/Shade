@@ -1,6 +1,7 @@
 
 # Shade
-## The Website Is [Live!] (https://shade-rx.onrender.com)
+## The Website Is Live! <br>
+[Here!](https://shade-rx.onrender.com) you go  
 
 
 Shade - (A Social Media Website with Anonymous Username)
