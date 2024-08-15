@@ -15,7 +15,7 @@ const app = express();
 const port = process.env.PORT || 4000
 
 //cors
-const allowedOrigins = ["http://localhost:8000", "http://localhost:5173"];
+const allowedOrigins = ["http://localhost:8000", "http://localhost:5173", "https://shade-ozp9.onrender.com"];
 const corsOptions = {
     origin: (origin, callback) => {
         // Allow requests with no origin (like mobile apps, curl requests)
