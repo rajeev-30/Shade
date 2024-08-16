@@ -134,6 +134,7 @@ const NotificationCard = ({ notification }) => {
                 {
                     notification.type === 'follow' && (
                         <div className='flex justify-between  py-2 cursor-pointer' onClick={() => navigate(`/post/${notification.post?._id}`)}>
+                            
                             <div className='w-[90%] min-h-14 flex  gap-1' >
                                 <div className='font-semibold flex  gap-2 '>
                                     <div >
