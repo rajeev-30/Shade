@@ -6,12 +6,14 @@ import axios from 'axios'
 import { POST_API_END_POINT } from '../../utils/Constant'
 import toast from 'react-hot-toast'
 import { getRefresh } from '../../redux/postSlice'
+import { useNavigate } from 'react-router-dom'
 
 
 const CommentCard = ({ comment, postId }) => {
     const {user} = useSelector(store=>store.user)
     const [isLoadingDeleteComment, setIsLoadingDeleteComment] = useState(false)
     const dispatch = useDispatch()
+    const navigate = useNavigate();
 
     const [followAndUnFollow, isLoading] = useFollowAndUnFollow();
 
@@ -34,9 +36,14 @@ const CommentCard = ({ comment, postId }) => {
     return (
         <div className='flex p-4  justify-between border-b border-gray-800'>
             <div className='flex gap-2 items-start'>
-                <img src={comment.user.avatar} width={35} />
+                <img 
+                    onClick={()=>navigate(`/profile/${comment.user._id}`)}
+                    src={comment.user.avatar} width={35} 
+                    className='cursor-pointer'/>
                 <div>
-                    <p className='text-sm font-semibold pb-1'>{comment.user.username}</p>
+                    <p
+                        onClick={()=>navigate(`/profile/${comment.user._id}`)} 
+                        className='text-sm font-semibold pb-1 cursor-pointer'>{comment.user.username}</p>
                     <p className='text-sm text-gray-200 '>{comment.text}</p>
                 </div>
             </div>
