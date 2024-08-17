@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Bookmark, Ellipsis, EllipsisVertical, Heart, MessageCircle, Trash2, UserRoundMinus, UserRoundPlus, UserRoundX } from 'lucide-react'
+import { Bookmark, Ellipsis, EllipsisVertical, Heart, MessageCircle, PenLine, Trash2, UserRoundMinus, UserRoundPlus, UserRoundX } from 'lucide-react'
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { POST_API_END_POINT } from '../../utils/Constant';
@@ -14,6 +14,9 @@ const PostCard = ({ post, openPost = false }) => {
   const { user } = useSelector(store => store.user);
   const dispatch = useDispatch()
   const [isLoadingDeletePost, setIsLoadingDeletePost] = useState(false)
+  const [isEditPost, setIsEditPost] = useState(false)
+  const [editText, setEditText] = useState(post.text)
+  const textareaRef = useRef(null);
 
   const [followAndUnFollow, isLoading] = useFollowAndUnFollow();
   const createdAt = useFormatDate(post.createdAt);
@@ -66,7 +69,58 @@ const PostCard = ({ post, openPost = false }) => {
     }
   }
 
+  const editPostHandler = async(req, res) => {
+    try {
+      const res = await axios.post(`${POST_API_END_POINT}/edit/${post._id}`, {editText}, {
+        withCredentials: true,
+      })
+      dispatch(getRefresh());
+      toast.success(res.data.message)
+      setIsEditPost(!isEditPost)
+      
+    } catch (error) {
+      console.log("Edit post error: ", error)
+      toast.error(error?.response?.data?.message)
+    }
+  }
 
+  // const textareaClickHandler =()=>{
+  //   textareaRef.current.focus();
+  // }
+
+  useEffect(()=>{
+    if(isEditPost){
+      textareaRef?.current.focus();
+    }
+    console.log(isEditPost)
+  },[isEditPost])
+  
+  useEffect(()=>{
+    setEditText(post.text);
+  },[post])
+
+  const getRowCount = () => {
+    const lines = editText.split('\n');
+    let rowCount = lines.length;
+    lines.forEach(line => {
+      rowCount += Math.floor(line.length / 70); // Assume average line width is 70 characters
+    });
+    // row count between 1 and 20
+    if (rowCount < 1) {
+        rowCount = 1;
+    } else if (rowCount > 20) {
+        rowCount = 20;
+    }
+    return rowCount;
+  };
+
+  //User can post maximum of 1000 characters
+  const handleTextChange = (e) => {
+    const inputText = e.target.value;
+    if (inputText.length <= 1000) {
+        setEditText(inputText);
+    }
+  };
 
 
   const [isExpanded, setIsExpanded] = useState(false);
@@ -100,82 +154,134 @@ const PostCard = ({ post, openPost = false }) => {
           </Link>
           
         </div>
+        {
+          isEditPost? (
+            <button
+              onClick={editPostHandler} 
+              className='flex justify-start text-sm font-semibold text-[#d75f41]'>
+              Done
+            </button>
+          ) : (
+              <div className="dropdown dropdown-end ">
+                <button className=""><Ellipsis width={18} /></button>
+                <ul className="max-w-fit relative top-0 menu dropdown-content bg-base-100 rounded-box z-[1] min-w-52 p-2 shadow">
+                  {
+                    user?._id != post.user._id && (
+                      user?.following?.includes(post.user._id)
+                        ? (<li>
+                          <button
+                            onClick={() => followAndUnFollow(post.user._id)}>
+                            {isLoading ?
+                              <div className='flex gap-2 items-center'>
+                                <UserRoundX width={16} /> Loading...
+                              </div>
+                              :
+                              <div className='flex gap-2 items-center'>
+                                <UserRoundX width={16} /> Unfollow&nbsp;{post.user.username}
+                              </div>
+                            }
+                          </button>
+                        </li>
 
-        <div className="dropdown dropdown-end ">
-          <button className=""><Ellipsis width={18} /></button>
-          <ul className="max-w-fit relative top-0 menu dropdown-content bg-base-100 rounded-box z-[1] min-w-52 p-2 shadow">
-            {
-              user?._id != post.user._id && (
-                user?.following?.includes(post.user._id)
-                  ? (<li>
-                    <button
-                      onClick={() => followAndUnFollow(post.user._id)}>
-                      {isLoading ?
-                        <div className='flex gap-2 items-center'>
-                          <UserRoundX width={16} /> Loading...
-                        </div>
-                        :
-                        <div className='flex gap-2 items-center'>
-                          <UserRoundX width={16} /> Unfollow&nbsp;{post.user.username}
-                        </div>
-                      }
-                    </button>
-                  </li>
+                        ) : (
 
-                  ) : (
+                          <li>
+                            <button
+                              onClick={() => followAndUnFollow(post.user._id)}>
+                              {isLoading ?
+                                <div className='flex gap-2 items-center font-semibold'>
+                                  <UserRoundPlus width={16} /> Loading...
+                                </div>
+                                :
+                                <div className='flex gap-2 items-center font-semibold'>
+                                  <UserRoundPlus width={16} /> Follow&nbsp;{post.user.username}
+                                </div>
+                              }
+                            </button>
+                          </li>)
+                    )
+                  }
+                  {
+                    user?._id === post.user._id && (
+                      <>
+                        <li>
+                          <button
+                            onClick={() => deletePostHandler(post._id)}> {
 
-                    <li>
-                      <button
-                        onClick={() => followAndUnFollow(post.user._id)}>
-                        {isLoading ?
-                          <div className='flex gap-2 items-center font-semibold'>
-                            <UserRoundPlus width={16} /> Loading...
-                          </div>
-                          :
-                          <div className='flex gap-2 items-center font-semibold'>
-                            <UserRoundPlus width={16} /> Follow&nbsp;{post.user.username}
-                          </div>
-                        }
-                      </button>
-                    </li>)
-              )
-            }
-            {
-              user?._id === post.user._id && (
-                <li>
-                  <button
-                    onClick={() => deletePostHandler(post._id)}> {
+                              isLoadingDeletePost ? (
+                                <div className='flex gap-2 items-center text-red-600 font-semibold'>
+                                  <Trash2 width={16} color='red' /> Deleting...
+                                </div>
+                              ) : (
+                                <div className='flex gap-2 items-center text-red-600 font-semibold'>
+                                  <Trash2 width={16} color='red' /> Delete
+                                </div>
+                              )}
 
-                      isLoadingDeletePost ? (
-                        <div className='flex gap-2 items-center text-red-600 font-semibold'>
-                          <Trash2 width={16} color='red' /> Deleting...
-                        </div>
-                      ) : (
-                        <div className='flex gap-2 items-center text-red-600 font-semibold'>
-                          <Trash2 width={16} color='red' /> Delete
-                        </div>
-                      )}
-
-                  </button>
-                </li>
-              )
-            }
-          </ul>
-
-        </div>
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            onClick={() => setIsEditPost(true)} 
+                            className='flex gap-2 items-center font-semibold'>
+                              <PenLine width={16} /> Edit
+                          </button>
+                        </li>
+                      </>
+                    )
+                  }
+                </ul>
+              </div>
+            )
+        }
+        
       </div>
       {
         post.text && (
           openPost
             ? <p className='text-gray-300 whitespace-pre-wrap font-montserrat'>
-                  {post.text}
+                  {
+                      isEditPost ? (
+                        <div>
+                          <textarea
+                            ref={textareaRef}
+                            value={editText}
+                            onChange={handleTextChange}
+                            id="message"
+                            name="message"
+                            rows={getRowCount()}
+                            className="w-full pr-4 text-gray-300 bg-inherit outline-none resize-none"
+                            placeholder="Write Fearlessly..."
+                        ></textarea>
+                        </div>
+                      ) : (
+                        post?.text
+                      )
+                    }
             </p>
 
             : <>
               <Link
-                to={`/post/${post._id}`}>
-                <p ref={textRef} className={`text-gray-300 overflow-hidden transition-max-height duration-300 whitespace-pre-wrap font-montserrat  ${isExpanded ? 'max-h-none' : 'max-h-60'}`}>
-                    {post.text}
+                to={isEditPost && !openPost? null : `/post/${post._id}`}>
+                <p ref={textRef} className={`text-gray-300 overflow-hidden transition-max-height duration-300 whitespace-pre-wrap font-montserrat  ${isExpanded && !openPost? 'max-h-none' : 'max-h-60'}`}>
+                    {
+                      isEditPost ? (
+                        <div>
+                          <textarea
+                            ref={textareaRef}
+                            value={editText}
+                            onChange={handleTextChange}
+                            id="message"
+                            name="message"
+                            rows={getRowCount()}
+                            className="w-full pr-4 text-gray-300 bg-inherit shadow-sm outline-none resize-none"
+                            placeholder="Write Fearlessly..."
+                        ></textarea>
+                        </div>
+                      ) : (
+                        post?.text
+                      )
+                    }
                 </p>
               </Link>
 

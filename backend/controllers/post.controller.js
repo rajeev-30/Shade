@@ -91,6 +91,44 @@ export const deletePost = async(req, res)=>{
     }
 }
 
+//Edit Post
+export const editPost = async(req, res) => {
+    try {
+        const {id} = req.params
+        let {editText : text} = req.body
+
+        const post = await Post.findById(id);
+        if(!post) {
+            return res.status(404).json({
+                message: "Post not found",
+                success:false
+            })
+        }
+
+        const img = post.img;
+        if(!text && !img) {
+            return res.status(400).json({
+                message: "Text required",
+                success:false
+            })
+        }
+        text = text.trim();
+        await Post.findByIdAndUpdate(id, {text});
+        return res.status(200).json({
+            message:"Post updated successfully",
+            success:true
+        })
+
+    } catch (error) {
+        console.log("Edit post error: " , error.message)
+        
+        return res.status(500).json({
+            message: "Internal server error",
+            success:false
+        })
+    }
+}
+
 //Get all posts
 export const getAllPosts = async(req, res) => {
     try {

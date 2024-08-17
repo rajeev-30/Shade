@@ -1,10 +1,11 @@
 import express from "express";
 import isAuthenticated from "../db/auth.js";
-import { commentOnPost, createPost, deleteComment, deletePost, getAllPosts, getFollowingPosts, getLikedPosts, getPost, getSavedPosts, getUserPosts, likeAndUnlike, saveAndUnSave } from "../controllers/post.controller.js";
+import { commentOnPost, createPost, deleteComment, deletePost, editPost, getAllPosts, getFollowingPosts, getLikedPosts, getPost, getSavedPosts, getUserPosts, likeAndUnlike, saveAndUnSave } from "../controllers/post.controller.js";
 
 const router = express.Router();
 
 router.route('/create').post(isAuthenticated, createPost);
+router.route('/edit/:id').post(isAuthenticated, editPost);
 router.route('/likeandunlike/:id').post(isAuthenticated,likeAndUnlike);
 router.route('/comment/:id').post(isAuthenticated,commentOnPost);
 router.route('/saveandunsave/:id').post(isAuthenticated,saveAndUnSave);
