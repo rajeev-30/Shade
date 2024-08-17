@@ -20,6 +20,7 @@ import { RiLogoutCircleRLine } from "react-icons/ri";
 import { RiLoginCircleLine } from "react-icons/ri";
 import { SiAboutdotme } from "react-icons/si";
 import CreatePostModal from '../Post/CreatePostModal';
+import LogoutModal from '../Auth/LogoutModal';
 
 
 
@@ -28,28 +29,9 @@ const LeftSidebar = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [createPostModal, setCreatepostModal] = useState(false)
+    const [logoutModal, setLogoutModal] = useState(false)
 
 
-    const LogoutHandler = async() =>{
-        try {
-            const res = await axios.get(`${USER_API_END_POINT}/logout`,{
-                withCredentials: true,
-            })
-
-            // dispatch(getUnFollowed(null));
-            dispatch(getRefresh())
-            // toast.success(res?.data?.message)
-            navigate('/');
-        } catch (error) {
-            console.log("Logout Errorr: "+error);
-            // toast.error(error?.response?.data?.message);
-
-            if(error?.response?.data?.isLoginRequired){
-                dispatch(setSigninModal(true));
-                navigate('/');
-            }
-        }
-    }
     return (
         <>
             <div className='w-[27%] min-h-screen max-h-full pl-32 border-r border-gray-800'>
@@ -101,18 +83,25 @@ const LeftSidebar = () => {
                     </NavLink>
 
                     <button
-                        onClick={LogoutHandler}
+                        onClick={()=> user? setLogoutModal(true) : dispatch(setSigninModal(true))}
                         className={`w-fit flex gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-400 hover:bg-opacity-10 `}
                     >
                         {
                             user
                                 ?<div className='flex gap-5'> 
                                     <RiLogoutCircleRLine size={25}/>
-                                    <p className="text-xl font-medium">Logout</p>
+                                    <button
+                                        className="text-xl font-medium">
+                                            Logout
+                                    </button>
                                 </div>
+
                                 :<div className='flex gap-5'>
                                     <RiLoginCircleLine size={25}/>
-                                    <p className="text-xl font-medium">Login</p>
+                                    <button 
+                                        className="text-xl font-medium">
+                                            Login
+                                    </button>
                                 </div>
                         }
                         
@@ -150,6 +139,11 @@ const LeftSidebar = () => {
             {
                 createPostModal && (
                     <CreatePostModal onClose={()=>setCreatepostModal(false)}/>
+                )
+            }
+            {
+                logoutModal && (
+                    <LogoutModal onClose={()=>setLogoutModal(false)}/>
                 )
             }
         </>
