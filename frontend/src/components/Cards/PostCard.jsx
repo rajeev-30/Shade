@@ -167,21 +167,21 @@ const PostCard = ({ post, openPost = false }) => {
       {
         post.text && (
           openPost
-            ? <p className='text-gray-200'>
-              {post.text}
+            ? <p className='text-gray-300 whitespace-pre-wrap font-montserrat'>
+                  {post.text}
             </p>
 
             : <>
               <Link
                 to={`/post/${post._id}`}>
-                <p ref={textRef} className={`text-gray-200 overflow-hidden transition-max-height duration-300 ${isExpanded ? 'max-h-none' : 'max-h-24'}`}>
-                  {post.text}
+                <p ref={textRef} className={`text-gray-300 overflow-hidden transition-max-height duration-300 whitespace-pre-wrap font-montserrat  ${isExpanded ? 'max-h-none' : 'max-h-60'}`}>
+                    {post.text}
                 </p>
               </Link>
 
               {showButton && (
                 <div className='flex justify-end '>
-                  <button onClick={toggleExpanded} className=" border-b border-black text-sm font-semibold hover:border-gray-400">
+                  <button onClick={toggleExpanded} className=" border-b border-black text-sm font-semibold hover:border-gray-400 text-gray-400">
                     {isExpanded ? '...see less' : '...see more'}
                   </button>
                 </div>

@@ -44,7 +44,7 @@ const CommentCard = ({ comment, postId }) => {
                     <p
                         onClick={()=>navigate(`/profile/${comment.user._id}`)} 
                         className='text-sm font-semibold pb-1 cursor-pointer'>{comment.user.username}</p>
-                    <p className='text-sm text-gray-200 '>{comment.text}</p>
+                    <p className='text-sm text-gray-300 '>{comment.text}</p>
                 </div>
             </div>
 

@@ -8,7 +8,7 @@ import {v2 as cloudinary} from "cloudinary"
 export const createPost = async(req,res) =>{
     try {
         const id = req.userId;
-        const { text } = req.body
+        let { text } = req.body
         let { img } = req.body
 
         const user = await User.findById(id);
@@ -31,7 +31,7 @@ export const createPost = async(req,res) =>{
             const uploadedRes = await cloudinary.uploader.upload(img);
             img = uploadedRes.secure_url;
         }
-
+        text = text.trim();
         await Post.create({
             text,
             img,
