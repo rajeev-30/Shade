@@ -92,7 +92,6 @@ const PostCard = ({ post, openPost = false }) => {
     if(isEditPost){
       textareaRef?.current.focus();
     }
-    console.log(isEditPost)
   },[isEditPost])
   
   useEffect(()=>{

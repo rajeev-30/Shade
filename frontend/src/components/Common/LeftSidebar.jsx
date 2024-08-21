@@ -1,12 +1,8 @@
-import { Home, Search, User, Store, LogOut, Bell } from 'lucide-react'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Signin from '../Auth/SignIn';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { getRefresh, getUnFollowed, getUser, setSigninModal } from '../../redux/userSlice';
-import axios from 'axios';
-import toast from 'react-hot-toast';
-import { USER_API_END_POINT } from '../../utils/Constant';
+import { setSigninModal } from '../../redux/userSlice';
 //  React icons 
 import { IoHomeSharp } from "react-icons/io5";
 import { IoHomeOutline } from "react-icons/io5";
@@ -18,7 +14,8 @@ import { FaRegUser } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa6";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { RiLoginCircleLine } from "react-icons/ri";
-import { SiAboutdotme } from "react-icons/si";
+import { FaRegBookmark } from "react-icons/fa";
+import { FaBookmark } from "react-icons/fa";
 import CreatePostModal from '../Post/CreatePostModal';
 import LogoutModal from '../Auth/LogoutModal';
 
@@ -108,17 +105,17 @@ const LeftSidebar = () => {
                     </button>
 
                     <NavLink
-                        to={"/aboutme"}
+                        to={"/saved"}
                         className={`w-fit flex gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-400 hover:bg-opacity-10 `}
                     >
-                        {/* {({ isActive }) => (
+                        {({ isActive }) => (
                             <>
-                                {isActive ? <IoHomeSharp size={25} /> : <IoHomeOutline size={25} />} 
-                                <p className={`text-xl font-medium ${isActive ? 'font-semibold' : ''}`}>Home</p>
+                                {isActive ? <FaBookmark size={25} /> : <FaRegBookmark size={25} />} 
+                                <p className={`text-xl font-medium ${isActive ? 'font-semibold' : ''}`}>Saved</p>
                             </>
-                        )} */}
-                        <SiAboutdotme size={25}/> <p className={`text-xl font-medium `}>About me</p>
+                        )}
                     </NavLink>
+
                     {
                         user && (
                             <button onClick={()=>setCreatepostModal(true)} className='text-xl font-medium px-10 py-3 cursor-pointer mt-4 rounded-full border-2 border-[#d75f41] text-[#d75f41]  hover:bg-[#d75f41] hover:text-white'>Create post</button>

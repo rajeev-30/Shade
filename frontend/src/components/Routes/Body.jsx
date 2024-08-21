@@ -8,7 +8,7 @@ import Followings from '../Profile/Followings'
 import Followers from '../Profile/Followers'
 import Notifications from '../../pages/Notifications'
 import OpenPost from '../Post/OpenPost'
-import AboutMe from '../../pages/AboutMe'
+import Saved from '../../pages/Saved'
 
 const Body = () => {
 
@@ -46,8 +46,8 @@ const Body = () => {
                     element:<Followers/>
                 },
                 {
-                    path: '/aboutme',
-                    element: <AboutMe/>
+                    path: '/saved',
+                    element: <Saved/>
                 }
             ]
         }
