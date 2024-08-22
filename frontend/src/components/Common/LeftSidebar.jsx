@@ -35,11 +35,11 @@ const LeftSidebar = () => {
                 <div className='pt-4 sticky top-0'>
                     <NavLink 
                         to={"/"}
-                        className={`w-fit flex gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-400 hover:bg-opacity-10`}
+                        className={`w-fit flex items-center gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-400 hover:bg-opacity-10`}
                     >
                         {({ isActive }) => (
                             <>
-                                {isActive ? <IoHomeSharp size={23} /> : <IoHomeOutline size={23} />} 
+                                {isActive ? <IoHomeSharp size={25} /> : <IoHomeOutline size={25} />} 
                                 <p className={`text-xl font-medium ${isActive ? 'font-semibold' : ''}`}>Home</p>
                             </>
                         )}
@@ -47,33 +47,33 @@ const LeftSidebar = () => {
 
                     <NavLink
                         to={"/search"}
-                        className={`w-fit flex gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-400 hover:bg-opacity-10 `}
+                        className={`w-fit flex items-center gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-400 hover:bg-opacity-10 `}
                     >
                         {({ isActive }) => (
                             <>
-                                {isActive ? <RiSearchFill size={24} /> : <RiSearchLine size={24} />} 
+                                {isActive ? <RiSearchFill size={26} /> : <RiSearchLine size={26} />} 
                                 <p className={`text-xl font-medium ${isActive ? 'font-semibold' : ''}`}>Search</p>
                             </>
                         )}
                     </NavLink>
                     <NavLink
                         to={"/notifications"}
-                        className={`w-fit flex gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-400 hover:bg-opacity-10 `}
+                        className={`w-fit flex items-center gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-400 hover:bg-opacity-10 `}
                     >
                         {({ isActive }) => (
                             <>
-                                {isActive ? <IoMdNotifications size={25} /> : <IoMdNotificationsOutline size={25} />} 
+                                {isActive ? <IoMdNotifications size={27} /> : <IoMdNotificationsOutline size={27} />} 
                                 <p className={`text-xl font-medium ${isActive ? 'font-semibold' : ''}`}>Notifications</p>
                             </>
                         )}
                     </NavLink>
 
                     <NavLink to={`/profile/${user?._id}`}
-                        className={`w-fit flex gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-400 hover:bg-opacity-10 `}
+                        className={`w-fit flex items-center gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-400 hover:bg-opacity-10 `}
                     >
                         {({ isActive }) => (
                             <>
-                                {isActive ? <FaUser size={20} /> : <FaRegUser size={20} />} 
+                                {isActive ? <FaUser size={22} /> : <FaRegUser size={22} />} 
                                 <p className={`text-xl font-medium ${isActive ? 'font-semibold' : ''}`}>Profile</p>
                             </>
                         )}
@@ -81,7 +81,7 @@ const LeftSidebar = () => {
 
                     <button
                         onClick={()=> user? setLogoutModal(true) : dispatch(setSigninModal(true))}
-                        className={`w-fit flex gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-400 hover:bg-opacity-10 `}
+                        className={`w-fit flex items-center gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-400 hover:bg-opacity-10 `}
                     >
                         {
                             user
@@ -106,11 +106,11 @@ const LeftSidebar = () => {
 
                     <NavLink
                         to={"/saved"}
-                        className={`w-fit flex gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-400 hover:bg-opacity-10 `}
+                        className={`w-fit flex items-center gap-5 cursor-pointer py-4 px-6 mb-2 rounded-full hover:bg-gray-400 hover:bg-opacity-10 `}
                     >
                         {({ isActive }) => (
                             <>
-                                {isActive ? <FaBookmark size={25} /> : <FaRegBookmark size={25} />} 
+                                {isActive ? <FaBookmark size={22} /> : <FaRegBookmark size={22} />} 
                                 <p className={`text-xl font-medium ${isActive ? 'font-semibold' : ''}`}>Saved</p>
                             </>
                         )}
