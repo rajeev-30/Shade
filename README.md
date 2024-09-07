@@ -1,7 +1,7 @@
 
 # Shade
 ## The Website Is Live! <br>
-[Here](https://shade-rx.onrender.com) you go  
+[Here](https://shade-rx.onrender.com) you go!  
 
 
 Shade - (A Social Media Website with Anonymous Username)
@@ -32,18 +32,18 @@ Go to the project directory
 Install dependencies
 
 ```bash
-  cd frontend
+  cd shade
   npm install
 ```
 ```bash
-  cd backend
+  cd frontend
   npm install
 ```
 
 Start the server
 
 ```bash
-  cd backend
+  cd shade
   npm run dev
 ```
 Start the Client
